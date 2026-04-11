@@ -311,6 +311,9 @@
         initDone = true;
         setProgress(100, '加载完成！');
         setTimeout(hideLoadingScreen, 300);
+
+        // Initial render after all data loaded
+        filterAndRender();
       } catch (err) {
         console.error('Init error:', err);
         document.getElementById('loadingScreen').innerHTML =
