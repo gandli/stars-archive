@@ -1,6 +1,6 @@
 # ⭐ My GitHub Stars
-> 📋 4815 starred repositories • Synced at 2026-04-11 20:55
-> Last updated: `2026-04-11T00:00:00Z`
+> 📋 4816 starred repositories • Synced daily at 02:00 UTC
+> 🔍 **[搜索页面](https://gandli.github.io/stars-archive/)** — 支持全文搜索、语言过滤、排序
 ---
 
 ## 🏆 Top 20 Stars
