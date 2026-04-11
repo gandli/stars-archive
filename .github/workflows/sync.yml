@@ -1,3 +1,4 @@
+.github/workflows/sync.yml
 name: 📋 Sync GitHub Stars
 
 on:
@@ -36,6 +37,10 @@ jobs:
         run: |
           python scripts/sync.py
 
+      - name: Enrich Data
+        run: |
+          python scripts/enrich.py
+
       - name: Generate README
         run: |
           python scripts/generate_readme.py
@@ -47,15 +52,12 @@ jobs:
             python scripts/detect_changes.py
           else
             cp data/stars.json data/stars-previous.json
-            echo "changes=true" >> $GITHUB_OUTPUT
-            echo "added_count=0" >> $GITHUB_OUTPUT
-            echo "removed_count=0" >> $GITHUB_OUTPUT
           fi
 
       - name: Show sync summary
         run: |
           echo "## 📋 Sync Summary"
-          echo "- Total stars: $(jq '. | length' data/stars.json)"
+          echo "- Total stars: $(jq '. | length' data/stars-enriched.json)"
           echo "- Last synced: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           echo ""
           if [ -f data/changes.json ]; then
@@ -73,5 +75,6 @@ jobs:
           file_pattern: |
             data/*.json
             README.md
+            search.html
           skip_dirty_check: false
           commit_options: '--no-verify'
