@@ -60,26 +60,28 @@ def fetch_all_stars(username):
             break
             
         for repo in data:
+            owner = repo.get("owner") or {}
+            license_info = repo.get("license") or {}
             repos.append({
-                "id": repo["id"],
-                "name": repo["full_name"],
-                "full_name": repo["full_name"],
+                "id": repo.get("id") or repo.get("full_name", ""),
+                "name": repo.get("full_name", ""),
+                "full_name": repo.get("full_name", ""),
                 "desc": repo.get("description") or "",
-                "stars": repo["stargazers_count"],
+                "stars": repo.get("stargazers_count", 0),
                 "lang": repo.get("language") or "",
                 "topics": repo.get("topics", []),
-                "url": repo["html_url"],
+                "url": repo.get("html_url") or "",
                 "homepage": repo.get("homepage") or "",
-                "fork": repo["fork"],
-                "created_at": repo["created_at"],
-                "updated_at": repo["updated_at"],
-                "pushed_at": repo["pushed_at"],
+                "fork": repo.get("fork", False),
+                "created_at": repo.get("created_at") or "",
+                "updated_at": repo.get("updated_at") or "",
+                "pushed_at": repo.get("pushed_at") or "",
                 "owner": {
-                    "login": repo["owner"]["login"],
-                    "type": repo["owner"]["type"],
-                    "avatar_url": repo["owner"]["avatar_url"],
+                    "login": owner.get("login") or "",
+                    "type": owner.get("type") or "",
+                    "avatar_url": owner.get("avatar_url") or "",
                 },
-                "license": repo.get("license", {}).get("spdx_id") or "",
+                "license": license_info.get("spdx_id") or "",
                 "forks_count": repo.get("forks_count", 0),
                 "open_issues_count": repo.get("open_issues_count", 0),
                 "watchers": repo.get("watchers_count", 0),
