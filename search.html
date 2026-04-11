@@ -271,28 +271,65 @@
     // ========== Hybrid Search (mode-aware) ==========
     async function filterAndRender() {
       const q = searchQuery.toLowerCase().trim();
-      let results;
 
       if (searchMode === 'semantic' && q && vectorsLoaded) {
-        // Pure semantic search
-        const semanticResults = await semanticSearch(q, 15);
-        filteredRepos = semanticResults
-          .filter(r => {
-            // Apply filters on semantic results
-            if (currentLang && allRepos[r.idx].lang !== currentLang) return false;
-            if (currentCat && allRepos[r.idx].lang_category !== currentCat) return false;
-            if (currentTag) {
-              const tags = [...(allRepos[r.idx].topics || []), ...(allRepos[r.idx].auto_tags || [])].map(t => t.toLowerCase());
-              if (!tags.includes(currentTag.toLowerCase())) return false;
-            }
-            return true;
-          })
-          .map(r => ({ ...allRepos[r.idx], _score: r.score, _semantic: true }));
+        // === SEMANTIC MODE: merge semantic + keyword results ===
+        
+        // Step 1: Get top semantic results
+        const semanticResults = await semanticSearch(q, 20);
+        const semanticMap = new Map();
+        for (const r of semanticResults) {
+          semanticMap.set(r.idx, r);
+        }
 
-        // Sort by score
-        filteredRepos.sort((a, b) => (b._score || 0) - (a._score || 0));
+        // Step 2: Keyword-filtered results
+        const keywordFiltered = allRepos.filter(repo => {
+          if (currentLang && repo.lang !== currentLang) return false;
+          if (currentCat && repo.lang_category !== currentCat) return false;
+          if (currentTag) {
+            const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
+            if (!tags.includes(currentTag.toLowerCase())) return false;
+          }
+          if (q) {
+            const searchable = [
+              repo.name || '', repo.desc || '', repo.desc_cn || '',
+              (repo.topics || []).join(' '), (repo.auto_tags || []).join(' '),
+              repo.lang || '', repo.lang_category || ''
+            ].join(' ').toLowerCase();
+            if (!searchable.includes(q)) return false;
+          }
+          return true;
+        });
+
+        // Step 3: Merge - tag semantic results within keyword results
+        // Semantic results keep their score; keyword results get score=0
+        const seen = new Set();
+        const merged = [];
+
+        // First: semantic matches (up to 10)
+        for (const r of semanticResults.slice(0, 10)) {
+          const repo = allRepos[r.idx];
+          // Re-apply filters
+          if (currentLang && repo.lang !== currentLang) continue;
+          if (currentCat && repo.lang_category !== currentCat) continue;
+          if (currentTag) {
+            const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
+            if (!tags.includes(currentTag.toLowerCase())) continue;
+          }
+          merged.push({ ...repo, _score: r.score, _semantic: true });
+          seen.add(r.idx);
+        }
+
+        // Second: keyword-only matches (no semantic score)
+        for (const repo of keywordFiltered) {
+          if (seen.has(allRepos.indexOf(repo))) continue;
+          merged.push({ ...repo, _score: 0, _semantic: false });
+        }
+
+        filteredRepos = merged;
+
       } else {
-        // Keyword + filter search
+        // === KEYWORD MODE: pure keyword + filter ===
         filteredRepos = allRepos.filter(repo => {
           if (currentLang && repo.lang !== currentLang) return false;
           if (currentCat && repo.lang_category !== currentCat) return false;
