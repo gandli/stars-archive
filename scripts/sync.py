@@ -26,24 +26,22 @@ def get_env_token():
 def api_request(url, params=None):
     """Make authenticated GitHub API request."""
     token = get_env_token()
-    if token:
-        HEADERS["Authorization"] = f"Bearer {token}"
+    if not token:
+        raise Exception("No GitHub token found in GH_TOKEN or GITHUB_TOKEN env")
+    
+    headers = dict(HEADERS)
+    headers["Authorization"] = f"Bearer {token}"
     
     if params:
         url += "?" + urllib.parse.urlencode(params)
     
-    req = urllib.request.Request(url, headers=HEADERS)
+    req = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             return json.loads(resp.read().decode())
     except urllib.error.HTTPError as e:
         body = e.read().decode() if e.fp else ""
-        raise Exception(f"HTTP {e.code}: {body[:200]}")
-
-def get_username():
-    """Get authenticated username."""
-    data = api_request(f"{GITHUB_API}/user")
-    return data["login"]
+        raise Exception(f"HTTP {e.code} for {url}: {body[:200]}")
 
 def fetch_all_stars(username):
     """Fetch all starred repos with pagination."""
@@ -98,6 +96,10 @@ def fetch_all_stars(username):
     return repos
 
 def main():
+    # Get username from env (set by workflow)
+    username = os.environ.get("GITHUB_ACTOR") or os.environ.get("GH_USER", "gandli")
+    print(f"Username: {username}")
+    
     data_dir = Path("data")
     previous_file = data_dir / "stars-previous.json"
     current_file = data_dir / "stars.json"
@@ -108,7 +110,6 @@ def main():
         shutil.copy(previous_file, data_dir / "stars-previous-backup.json")
     
     # Save new data
-    username = get_username()
     repos = fetch_all_stars(username)
     
     with open(current_file, "w", encoding="utf-8") as f:
