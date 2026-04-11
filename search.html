@@ -306,14 +306,23 @@
         bindEvents();
 
         // Load vectors from IndexedDB or network
-        await loadVectors();
+        try {
+          await loadVectors();
+        } catch (err) {
+          console.error('loadVectors error:', err);
+          vectorsLoaded = false; // allow keyword search to continue
+          document.getElementById('vectorStatus').textContent = '⚠️ 向量加载失败，仅关键词搜索可用';
+        }
 
         initDone = true;
         setProgress(100, '加载完成！');
         setTimeout(hideLoadingScreen, 300);
 
         // Initial render after all data loaded
-        filterAndRender();
+        filterAndRender().catch(err => {
+          console.error('filterAndRender error:', err);
+          document.getElementById('results').innerHTML = `<div class="empty"><p>❌ 渲染失败: ${err.message}</p></div>`;
+        });
       } catch (err) {
         console.error('Init error:', err);
         document.getElementById('loadingScreen').innerHTML =
