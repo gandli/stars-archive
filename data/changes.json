@@ -1,9 +1,96 @@
 {
-  "added": [],
-  "removed": [],
+  "added": [
+    {
+      "id": 1129759677,
+      "name": "snarktank/ralph",
+      "full_name": "snarktank/ralph",
+      "desc": "Ralph is an autonomous AI agent loop that runs repeatedly until all PRD items are complete. ",
+      "stars": 15270,
+      "lang": "TypeScript",
+      "topics": [],
+      "url": "https://github.com/snarktank/ralph",
+      "homepage": "https://x.com/ryancarson/status/2008548371712135632",
+      "fork": false,
+      "created_at": "2026-01-07T14:45:10Z",
+      "updated_at": "2026-04-11T16:30:37Z",
+      "pushed_at": "2026-02-02T01:46:21Z",
+      "owner": {
+        "login": "snarktank",
+        "type": "User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/152063952?v=4"
+      },
+      "license": "MIT",
+      "forks_count": 1562,
+      "open_issues_count": 63,
+      "watchers": 15270
+    }
+  ],
+  "removed": [
+    {
+      "id": 447153396,
+      "name": "huynhsontung/Screenbox",
+      "full_name": "huynhsontung/Screenbox",
+      "desc": "LibVLC-based media player for the Universal Windows Platform",
+      "stars": 3338,
+      "lang": "C#",
+      "topics": [
+        "csharp",
+        "dotnet",
+        "media-player",
+        "multimedia",
+        "player",
+        "uwp",
+        "vlc"
+      ],
+      "url": "https://github.com/huynhsontung/Screenbox",
+      "homepage": "",
+      "fork": false,
+      "created_at": "2022-01-12T09:25:48Z",
+      "updated_at": "2026-04-11T09:11:23Z",
+      "pushed_at": "2026-04-09T20:12:13Z",
+      "owner": {
+        "login": "huynhsontung",
+        "type": "User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/31434093?v=4"
+      },
+      "license": "GPL-3.0",
+      "forks_count": 141,
+      "open_issues_count": 208,
+      "watchers": 3338
+    },
+    {
+      "id": 132575997,
+      "name": "Calinou/scoop-games",
+      "full_name": "Calinou/scoop-games",
+      "desc": "Scoop bucket for open source/freeware games and game-related tools",
+      "stars": 344,
+      "lang": "PowerShell",
+      "topics": [
+        "games",
+        "open-source-game",
+        "scoop",
+        "scoop-bucket"
+      ],
+      "url": "https://github.com/Calinou/scoop-games",
+      "homepage": "",
+      "fork": false,
+      "created_at": "2018-05-08T08:09:16Z",
+      "updated_at": "2026-04-11T12:33:10Z",
+      "pushed_at": "2026-04-11T12:33:06Z",
+      "owner": {
+        "login": "Calinou",
+        "type": "User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/180032?v=4"
+      },
+      "license": "CC0-1.0",
+      "forks_count": 198,
+      "open_issues_count": 122,
+      "watchers": 344
+    }
+  ],
   "summary": {
-    "added_count": 0,
-    "removed_count": 0,
-    "net_change": 0
+    "added_count": 1,
+    "removed_count": 2,
+    "net_change": -1
   }
 }

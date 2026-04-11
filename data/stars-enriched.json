@@ -2331,6 +2331,51 @@
     ]
   },
   {
+    "id": 27193779,
+    "name": "nodejs/node",
+    "full_name": "nodejs/node",
+    "desc": "Node.js JavaScript runtime ✨🐢🚀✨",
+    "stars": 116676,
+    "lang": "JavaScript",
+    "topics": [
+      "javascript",
+      "js",
+      "linux",
+      "macos",
+      "mit",
+      "node",
+      "nodejs",
+      "runtime",
+      "windows"
+    ],
+    "url": "https://github.com/nodejs/node",
+    "homepage": "https://nodejs.org",
+    "fork": false,
+    "created_at": "2014-11-26T19:57:11Z",
+    "updated_at": "2026-04-11T13:13:41Z",
+    "pushed_at": "2026-04-11T10:37:30Z",
+    "owner": {
+      "login": "nodejs",
+      "type": "Organization",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9950313?v=4"
+    },
+    "license": "NOASSERTION",
+    "forks_count": 35315,
+    "open_issues_count": 2603,
+    "watchers": 116676,
+    "lang_category": "JavaScript",
+    "auto_tags": [
+      "javascript",
+      "nodejs",
+      "runtime",
+      "node",
+      "windows",
+      "mit",
+      "linux",
+      "macos"
+    ]
+  },
+  {
     "id": 14098069,
     "name": "justjavac/free-programming-books-zh_CN",
     "full_name": "justjavac/free-programming-books-zh_CN",
@@ -43658,6 +43703,35 @@
     ]
   },
   {
+    "id": 1129759677,
+    "name": "snarktank/ralph",
+    "full_name": "snarktank/ralph",
+    "desc": "Ralph is an autonomous AI agent loop that runs repeatedly until all PRD items are complete. ",
+    "stars": 15270,
+    "lang": "TypeScript",
+    "topics": [],
+    "url": "https://github.com/snarktank/ralph",
+    "homepage": "https://x.com/ryancarson/status/2008548371712135632",
+    "fork": false,
+    "created_at": "2026-01-07T14:45:10Z",
+    "updated_at": "2026-04-11T16:30:37Z",
+    "pushed_at": "2026-02-02T01:46:21Z",
+    "owner": {
+      "login": "snarktank",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/152063952?v=4"
+    },
+    "license": "MIT",
+    "forks_count": 1562,
+    "open_issues_count": 63,
+    "watchers": 15270,
+    "lang_category": "🤖 AI/ML",
+    "auto_tags": [
+      "AI"
+    ],
+    "desc_cn": null
+  },
+  {
     "id": 982587624,
     "name": "opendataloader-project/opendataloader-pdf",
     "full_name": "opendataloader-project/opendataloader-pdf",
@@ -71248,34 +71322,6 @@
     ]
   },
   {
-    "id": 741763034,
-    "name": "chengaopan/AutoMergePublicNodes",
-    "full_name": "chengaopan/AutoMergePublicNodes",
-    "desc": "自动抓取合并互联网上的公开节点。 🚀 免费节点,🚀免费节点订阅,🚀v2ray免费节点,ssr免费节点订阅,clash免费节点订阅,免费梯子,免费翻墙,免费科学上网,免费ss/v2ray/trojan/clash节点,谷歌商店,翻墙梯子",
-    "stars": 7189,
-    "lang": "Python",
-    "topics": [],
-    "url": "https://github.com/chengaopan/AutoMergePublicNodes",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2024-01-11T03:59:55Z",
-    "updated_at": "2026-04-11T13:33:08Z",
-    "pushed_at": "2026-04-11T13:33:01Z",
-    "owner": {
-      "login": "chengaopan",
-      "type": "User",
-      "avatar_url": "https://avatars.githubusercontent.com/u/18641281?v=4"
-    },
-    "license": "NOASSERTION",
-    "forks_count": 1201,
-    "open_issues_count": 16,
-    "watchers": 7189,
-    "lang_category": "JavaScript",
-    "auto_tags": [
-      "Web"
-    ]
-  },
-  {
     "id": 1133707766,
     "name": "multica-ai/multica",
     "full_name": "multica-ai/multica",
@@ -71303,6 +71349,34 @@
       "Database",
       "Open Source",
       "AI"
+    ]
+  },
+  {
+    "id": 741763034,
+    "name": "chengaopan/AutoMergePublicNodes",
+    "full_name": "chengaopan/AutoMergePublicNodes",
+    "desc": "自动抓取合并互联网上的公开节点。 🚀 免费节点,🚀免费节点订阅,🚀v2ray免费节点,ssr免费节点订阅,clash免费节点订阅,免费梯子,免费翻墙,免费科学上网,免费ss/v2ray/trojan/clash节点,谷歌商店,翻墙梯子",
+    "stars": 7189,
+    "lang": "Python",
+    "topics": [],
+    "url": "https://github.com/chengaopan/AutoMergePublicNodes",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2024-01-11T03:59:55Z",
+    "updated_at": "2026-04-11T13:33:08Z",
+    "pushed_at": "2026-04-11T13:33:01Z",
+    "owner": {
+      "login": "chengaopan",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18641281?v=4"
+    },
+    "license": "NOASSERTION",
+    "forks_count": 1201,
+    "open_issues_count": 16,
+    "watchers": 7189,
+    "lang_category": "JavaScript",
+    "auto_tags": [
+      "Web"
     ]
   },
   {
@@ -100564,50 +100638,6 @@
     ]
   },
   {
-    "id": 447153396,
-    "name": "huynhsontung/Screenbox",
-    "full_name": "huynhsontung/Screenbox",
-    "desc": "LibVLC-based media player for the Universal Windows Platform",
-    "stars": 3338,
-    "lang": "C#",
-    "topics": [
-      "csharp",
-      "dotnet",
-      "media-player",
-      "multimedia",
-      "player",
-      "uwp",
-      "vlc"
-    ],
-    "url": "https://github.com/huynhsontung/Screenbox",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2022-01-12T09:25:48Z",
-    "updated_at": "2026-04-11T09:11:23Z",
-    "pushed_at": "2026-04-09T20:12:13Z",
-    "owner": {
-      "login": "huynhsontung",
-      "type": "User",
-      "avatar_url": "https://avatars.githubusercontent.com/u/31434093?v=4"
-    },
-    "license": "GPL-3.0",
-    "forks_count": 141,
-    "open_issues_count": 208,
-    "watchers": 3338,
-    "lang_category": "C#",
-    "auto_tags": [
-      "uwp",
-      "Library",
-      "multimedia",
-      "dotnet",
-      "csharp",
-      "vlc",
-      "player",
-      "Database",
-      "media-player"
-    ]
-  },
-  {
     "id": 421787720,
     "name": "foxsen/archbase",
     "full_name": "foxsen/archbase",
@@ -109735,6 +109765,32 @@
     "open_issues_count": 68,
     "watchers": 2513,
     "lang_category": "Python",
+    "auto_tags": []
+  },
+  {
+    "id": 886508276,
+    "name": "Zephyruso/zashboard",
+    "full_name": "Zephyruso/zashboard",
+    "desc": "",
+    "stars": 2507,
+    "lang": "Vue",
+    "topics": [],
+    "url": "https://github.com/Zephyruso/zashboard",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2024-11-11T05:17:05Z",
+    "updated_at": "2026-04-11T13:45:10Z",
+    "pushed_at": "2026-04-10T10:10:54Z",
+    "owner": {
+      "login": "Zephyruso",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/176294927?v=4"
+    },
+    "license": "MIT",
+    "forks_count": 278,
+    "open_issues_count": 6,
+    "watchers": 2507,
+    "lang_category": "Vue",
     "auto_tags": []
   },
   {
@@ -163285,44 +163341,6 @@
     "lang_category": "API",
     "auto_tags": [
       "API"
-    ]
-  },
-  {
-    "id": 132575997,
-    "name": "Calinou/scoop-games",
-    "full_name": "Calinou/scoop-games",
-    "desc": "Scoop bucket for open source/freeware games and game-related tools",
-    "stars": 344,
-    "lang": "PowerShell",
-    "topics": [
-      "games",
-      "open-source-game",
-      "scoop",
-      "scoop-bucket"
-    ],
-    "url": "https://github.com/Calinou/scoop-games",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2018-05-08T08:09:16Z",
-    "updated_at": "2026-04-11T12:33:10Z",
-    "pushed_at": "2026-04-11T12:33:06Z",
-    "owner": {
-      "login": "Calinou",
-      "type": "User",
-      "avatar_url": "https://avatars.githubusercontent.com/u/180032?v=4"
-    },
-    "license": "CC0-1.0",
-    "forks_count": 197,
-    "open_issues_count": 122,
-    "watchers": 344,
-    "lang_category": "PowerShell",
-    "auto_tags": [
-      "games",
-      "Open Source",
-      "scoop-bucket",
-      "CLI Tool",
-      "scoop",
-      "open-source-game"
     ]
   },
   {
