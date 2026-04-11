@@ -1,0 +1,71 @@
+name: 📋 Sync GitHub Stars
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天凌晨 2:00 UTC = 北京时间 10:00
+  workflow_dispatch:       # 支持手动触发
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch Stars
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/sync.py
+
+      - name: Generate README
+        run: |
+          python scripts/generate_readme.py
+
+      - name: Detect changes
+        id: detect
+        run: |
+          if [ -f data/stars-previous.json ]; then
+            python scripts/detect_changes.py
+          else
+            cp data/stars.json data/stars-previous.json
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "added_count=0" >> $GITHUB_OUTPUT
+            echo "removed_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Show sync summary
+        run: |
+          echo "## 📋 Sync Summary"
+          echo "- Total stars: $(jq '. | length' data/stars.json)"
+          echo "- Last synced: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo ""
+          if [ -f data/changes.json ]; then
+            echo "### Changes:"
+            echo "- ⭐ New: $(jq '.added | length' data/changes.json)"
+            echo "- ❌ Removed: $(jq '.removed | length' data/changes.json)"
+          fi
+
+      - name: Commit & Push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: |
+            📋 Sync stars $(date +%Y-%m-%d)
+            $(if [ -f data/changes.json ]; then echo "- ⭐ New: $(jq -r '.added | length' data/changes.json) | ❌ Removed: $(jq -r '.removed | length' data/changes.json)"; fi)
+          file_pattern: |
+            data/*.json
+            README.md
+          skip_dirty: false
+          commit_options: '--no-verify'
