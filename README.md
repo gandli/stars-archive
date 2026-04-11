@@ -1,9 +1,11 @@
 # ⭐ My GitHub Stars
-> 📋 4816 starred repositories • Synced daily at 02:00 UTC
-> 🔍 **[搜索页面](https://gandli.github.io/stars-archive/)** — 支持全文搜索、语言过滤、排序
+
+> 📋 **4,816** starred repositories · 77 languages · Auto-synced daily at 02:00 UTC
+> 🔍 **[搜索页面](https://gandli.github.io/stars-archive/)** — 支持全文搜索 · 语言分类 · 标签过滤 · 中文描述
+
+
 ---
 
-## 🏆 Top 20 Stars
 
  1. ⭐ 488,835 │ [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) `(Markdown)`
     └─ Master programming by recreating your favorite technologies 
