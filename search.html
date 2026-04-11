@@ -28,7 +28,7 @@
     }
     .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,166,255,0.15); }
     .search-box::before { content: "🔍"; position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 1.1rem; }
-    
+
     .search-modes { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap; }
     .mode-btn {
       padding: 0.25rem 0.65rem; background: var(--bg2); border: 1px solid var(--border);
@@ -60,6 +60,24 @@
     }
     .tag-chip:hover { border-color: var(--purple); }
     .tag-chip.active { background: var(--purple); color: #fff; }
+
+    /* Progress bar */
+    .loading-screen {
+      position: fixed; inset: 0; background: var(--bg); z-index: 999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.2rem; transition: opacity 0.4s;
+    }
+    .loading-screen.hidden { opacity: 0; pointer-events: none; }
+    .loading-title { font-size: 1.1rem; color: var(--text); font-weight: 500; }
+    .loading-sub { font-size: 0.85rem; color: var(--text2); }
+    .progress-track {
+      width: 280px; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%; background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 3px; transition: width 0.3s ease; width: 0%;
+    }
+    .progress-label { font-size: 0.8rem; color: var(--text2); font-variant-numeric: tabular-nums; }
 
     /* Results */
     .results-count { color: var(--text2); margin-bottom: 0.6rem; font-size: 0.83rem; }
@@ -108,11 +126,19 @@
     footer a { color: var(--accent); }
     mark { background: rgba(255,200,0,0.25); color: inherit; padding: 0 2px; border-radius: 2px; }
 
-    /* Vector loading progress */
     .vector-status { font-size: 0.75rem; color: var(--purple); margin-left: 0.5rem; }
   </style>
 </head>
 <body>
+
+  <!-- Loading screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-title">🚀 初始化中...</div>
+    <div class="loading-sub" id="loadingSub">准备加载</div>
+    <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">0%</div>
+  </div>
+
   <div class="container">
     <header>
       <h1><a href="https://github.com/gandli/stars-archive">⭐ GitHub Stars</a></h1>
@@ -151,14 +177,76 @@
   </div>
 
   <script type="module">
+    // ========== IndexedDB Utilities ==========
+    const DB_NAME = 'stars-search';
+    const DB_VERSION = 2;
+    const STORE_VECTORS = 'vectors';
+    const STORE_META = 'meta';
+
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onerror = () => reject(req.error);
+        req.onsuccess = () => resolve(req.result);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_VECTORS)) {
+            db.createObjectStore(STORE_VECTORS, { keyPath: 'id' });
+          }
+          if (!db.objectStoreNames.contains(STORE_META)) {
+            db.createObjectStore(STORE_META, { keyPath: 'key' });
+          }
+        };
+      });
+    }
+
+    async function idbGet(store, key) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(store, 'readonly');
+        const req = tx.objectStore(store).get(key);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function idbPut(store, value) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(store, 'readwrite');
+        const req = tx.objectStore(store).put(value);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function idbGetAll(store) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(store, 'readonly');
+        const req = tx.objectStore(store).getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function idbClear(store) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(store, 'readwrite');
+        const req = tx.objectStore(store).clear();
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    }
+
     // ========== State ==========
     let allRepos = [];
     let repoIdToIdx = {};
     let vectors = {};           // id -> float32 array
     let descCnMap = {};         // id -> Chinese description
     let embeddings = null;       // pipeline
-    let currentMode = 'hybrid'; // 'hybrid' | 'semantic'
-    let searchMode = 'hybrid';
+    let searchMode = 'hybrid';  // 'hybrid' | 'semantic'
     let filteredRepos = [];
     let currentPage = 1;
     const PER_PAGE = 25;
@@ -168,87 +256,142 @@
     let currentTag = '';
     let searchQuery = '';
     let vectorsLoaded = false;
+    let initDone = false;
+
+    // ========== Loading Screen ==========
+    function setProgress(pct, label) {
+      const bar = document.getElementById('progressBar');
+      const lbl = document.getElementById('progressLabel');
+      const sub = document.getElementById('loadingSub');
+      if (bar) bar.style.width = pct + '%';
+      if (lbl) lbl.textContent = label || Math.round(pct) + '%';
+      if (sub && label) sub.textContent = label;
+    }
+
+    function hideLoadingScreen() {
+      const scr = document.getElementById('loadingScreen');
+      if (scr) {
+        scr.classList.add('hidden');
+        setTimeout(() => scr.remove(), 500);
+      }
+    }
 
     // ========== Init ==========
     async function init() {
       try {
-        // Load repos
+        setProgress(5, '加载项目数据...');
         let dataUrl = 'data/stars-enriched.json';
         let resp = await fetch(dataUrl);
         if (!resp.ok) throw new Error('Failed to load data');
         allRepos = await resp.json();
-        
-        // Build id index
         allRepos.forEach((r, i) => { repoIdToIdx[String(r.id)] = i; });
+        setProgress(20, '加载中文翻译...');
 
+        // Load Chinese descriptions
+        try {
+          const cnResp = await fetch('data/desc-cn.json');
+          if (cnResp.ok) {
+            const cnData = await cnResp.json();
+            descCnMap = cnData;
+            const cnCount = Object.keys(descCnMap).length;
+            const badge = document.getElementById('vectorStatus');
+            if (badge) badge.textContent = `🌐 ${cnCount} 已翻译中文`;
+          }
+        } catch {}
+
+        setProgress(30, '检查向量缓存...');
         renderFilterOptions();
         renderTagCloud();
         updateStats();
         bindEvents();
 
-        // Load vectors in background
-        loadVectors();
+        // Load vectors from IndexedDB or network
+        await loadVectors();
 
-        // Load Chinese descriptions
-        loadDescCn();
+        initDone = true;
+        setProgress(100, '加载完成！');
+        setTimeout(hideLoadingScreen, 300);
       } catch (err) {
-        document.getElementById('results').innerHTML = `<div class="empty"><p>❌ 数据加载失败: ${err.message}</p></div>`;
+        console.error('Init error:', err);
+        document.getElementById('loadingScreen').innerHTML =
+          `<div class="loading-title">❌ 初始化失败</div><div class="loading-sub">${err.message}</div>`;
       }
     }
 
     async function loadVectors() {
-      const status = document.getElementById('vectorStatus');
-      try {
-        status.textContent = '📦 加载向量索引...';
-        
-        // Dynamic import of transformers.js
-        const { pipeline, cosSimilarity, meanPooling } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1');
+      setProgress(35, '检查 IndexedDB 缓存...');
+      const metaKey = 'vectors-meta';
 
-        // Load vectors JSON
+      // Check cache validity
+      let cachedMeta = null;
+      try {
+        cachedMeta = await idbGet(STORE_META, metaKey);
+      } catch {}
+
+      const networkMetaResp = await fetch('data/vectors-meta.json');
+      const networkMeta = networkMetaResp.ok ? await networkMetaResp.json() : null;
+
+      const cacheValid = cachedMeta && networkMeta &&
+        cachedMeta.count === networkMeta.count &&
+        cachedMeta.generated_at === networkMeta.generated_at;
+
+      if (cacheValid) {
+        // Load from IndexedDB
+        setProgress(45, '从本地缓存加载向量...');
+        const cached = await idbGetAll(STORE_VECTORS);
+        for (const item of cached) {
+          vectors[item.id] = new Float32Array(item.vec);
+        }
+        setProgress(65, `✅ 已从缓存加载 ${cached.length} 个向量`);
+
+        // Load embeddings model
+        setProgress(70, '加载语义模型 (~80MB, 已缓存)...');
+        await loadEmbeddings();
+      } else {
+        // Fetch from network
+        setProgress(40, '下载向量文件 (~7MB)...');
         const vResp = await fetch('data/vectors.json');
         if (!vResp.ok) throw new Error('vectors.json not found');
         const vectorsData = await vResp.json();
-        
-        // Convert to float32 arrays
+        const total = Object.keys(vectorsData).length;
+
+        setProgress(55, `保存向量到 IndexedDB...`);
+        // Clear old cache and store fresh
+        await idbClear(STORE_VECTORS);
+        const batch = [];
         let count = 0;
         for (const [id, arr] of Object.entries(vectorsData)) {
           vectors[id] = new Float32Array(arr);
+          batch.push({ id, vec: arr });
+          if (batch.length >= 200) {
+            for (const item of batch) await idbPut(STORE_VECTORS, item);
+            batch.length = 0;
+          }
           count++;
+          if (count % 500 === 0) {
+            setProgress(55 + 10 * count / total, `保存向量 ${count}/${total}...`);
+          }
         }
-        
-        // Load embedding model
-        status.textContent = '🤖 加载模型 (~80MB, 缓存后重用)...';
-        embeddings = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
-          quantized: true,
-        });
+        for (const item of batch) await idbPut(STORE_VECTORS, item);
 
-        vectorsLoaded = true;
-        status.textContent = `✅ ${count.toLocaleString()} 向量已加载`;
-        
-        // If user is in semantic mode, re-search
-        if (searchMode === 'semantic' && searchQuery) {
-          filterAndRender();
+        // Save meta
+        if (networkMeta) {
+          await idbPut(STORE_META, { key: metaKey, ...networkMeta });
         }
-      } catch (err) {
-        status.textContent = '⚠️ 向量加载失败: ' + err.message;
-        console.error('Vector load error:', err);
+
+        setProgress(70, '加载语义模型...');
+        await loadEmbeddings();
       }
+
+      vectorsLoaded = true;
+      setProgress(95, '就绪！');
     }
 
-    async function loadDescCn() {
-      try {
-        const resp = await fetch('data/desc-cn.json');
-        if (!resp.ok) return;
-        const data = await resp.json();
-        descCnMap = data;
-        
-        const cnCount = Object.keys(descCnMap).length;
-        const cnBadge = document.getElementById('cnBadge');
-        if (cnBadge) cnBadge.textContent = `🌐 ${cnCount} 已翻译中文`;
-        
-        // Re-render if results are showing
-        if (filteredRepos.length > 0) renderResults();
-      } catch {}
+    async function loadEmbeddings() {
+      const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1');
+      embeddings = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+        quantized: true,
+      });
     }
 
     function updateStats() {
@@ -271,38 +414,30 @@
 
     async function semanticSearch(query, topK = 10) {
       if (!vectorsLoaded || !embeddings) return [];
-      
-      // Embed query
+
       const output = await embeddings(query, { pooling: 'mean', normalize: true });
       const queryVec = new Float32Array(output.data);
-      
-      // KNN search
+
       const results = [];
       for (const [id, vec] of Object.entries(vectors)) {
         const idx = repoIdToIdx[id];
         if (idx === undefined) continue;
         results.push({ idx, score: cosineSimilarity(queryVec, vec) });
       }
-      
+
       results.sort((a, b) => b.score - a.score);
       return results.slice(0, topK);
     }
 
-    // ========== Hybrid Search (mode-aware) ==========
+    // ========== Hybrid Search ==========
     async function filterAndRender() {
       const q = searchQuery.toLowerCase().trim();
 
       if (searchMode === 'semantic' && q && vectorsLoaded) {
-        // === SEMANTIC MODE: merge semantic + keyword results ===
-        
-        // Step 1: Get top semantic results
         const semanticResults = await semanticSearch(q, 20);
         const semanticMap = new Map();
-        for (const r of semanticResults) {
-          semanticMap.set(r.idx, r);
-        }
+        for (const r of semanticResults) semanticMap.set(r.idx, r);
 
-        // Step 2: Keyword-filtered results
         const keywordFiltered = allRepos.filter(repo => {
           if (currentLang && repo.lang !== currentLang) return false;
           if (currentCat && repo.lang_category !== currentCat) return false;
@@ -321,15 +456,11 @@
           return true;
         });
 
-        // Step 3: Merge - tag semantic results within keyword results
-        // Semantic results keep their score; keyword results get score=0
         const seen = new Set();
         const merged = [];
 
-        // First: semantic matches (up to 10)
         for (const r of semanticResults.slice(0, 10)) {
           const repo = allRepos[r.idx];
-          // Re-apply filters
           if (currentLang && repo.lang !== currentLang) continue;
           if (currentCat && repo.lang_category !== currentCat) continue;
           if (currentTag) {
@@ -340,7 +471,6 @@
           seen.add(r.idx);
         }
 
-        // Second: keyword-only matches (no semantic score)
         for (const repo of keywordFiltered) {
           if (seen.has(allRepos.indexOf(repo))) continue;
           merged.push({ ...repo, _score: 0, _semantic: false });
@@ -349,7 +479,6 @@
         filteredRepos = merged;
 
       } else {
-        // === KEYWORD MODE: pure keyword + filter ===
         filteredRepos = allRepos.filter(repo => {
           if (currentLang && repo.lang !== currentLang) return false;
           if (currentCat && repo.lang_category !== currentCat) return false;
@@ -392,27 +521,22 @@
         return;
       }
 
-      const semanticRepos = filteredRepos.filter(r => r._semantic);
-      const keywordRepos = filteredRepos.filter(r => !r._semantic);
-
       document.getElementById('resultsCount').textContent =
         searchMode === 'semantic'
           ? `🔮 语义搜索: ${filteredRepos.length.toLocaleString()} 个相关结果`
           : `显示 ${start+1}-${Math.min(end, filteredRepos.length)} / 共 ${filteredRepos.length.toLocaleString()} 个`;
 
       let html = '';
+      const semanticPage = pageRepos.filter(r => r._semantic);
+      const keywordPage = pageRepos.filter(r => !r._semantic);
 
-      if (searchMode === 'semantic' && semanticRepos.length > 0) {
+      if (searchMode === 'semantic' && semanticPage.length > 0) {
         html += `<div class="section-label">🔮 语义相关项目</div>`;
-        html += pageRepos.filter(r => r._semantic).map(repo => renderRepoCard(repo, true)).join('');
+        html += semanticPage.map(repo => renderRepoCard(repo, true)).join('');
       }
-
-      const nonSemanticPage = pageRepos.filter(r => !r._semantic);
-      if (nonSemanticPage.length > 0) {
-        if (searchMode === 'semantic') {
-          html += `<div class="section-label" style="margin-top:0.75rem">📋 关键词匹配</div>`;
-        }
-        html += nonSemanticPage.map(repo => renderRepoCard(repo, false)).join('');
+      if (keywordPage.length > 0) {
+        if (searchMode === 'semantic') html += `<div class="section-label" style="margin-top:0.75rem">📋 关键词匹配</div>`;
+        html += keywordPage.map(repo => renderRepoCard(repo, false)).join('');
       }
 
       container.innerHTML = html;
@@ -420,7 +544,6 @@
     }
 
     function getDescCn(repo) {
-      // Priority: repo.desc_cn (embedded) > descCnMap (loaded from desc-cn.json)
       return repo.desc_cn || descCnMap[String(repo.id)] || '';
     }
 
@@ -518,7 +641,6 @@
         }, searchMode === 'semantic' ? 400 : 200);
       });
 
-      // Mode switch
       document.querySelectorAll('[data-mode]').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
@@ -536,7 +658,6 @@
       document.getElementById('langFilter').addEventListener('change', e => { currentLang = e.target.value; filterAndRender(); updateURL(); });
       document.getElementById('catFilter').addEventListener('change', e => { currentCat = e.target.value; filterAndRender(); updateURL(); });
 
-      // URL params
       const params = new URLSearchParams(location.search);
       if (params.get('q')) { searchQuery = params.get('q'); document.getElementById('searchInput').value = searchQuery; }
       if (params.get('lang')) { currentLang = params.get('lang'); document.getElementById('langFilter').value = currentLang; }
