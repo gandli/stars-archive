@@ -13,3 +13,4 @@ Thumbs.db
 # Backup files
 *～
 *.bak
+node_modules/

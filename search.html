@@ -6,45 +6,20 @@
   <title>⭐ GitHub Stars 搜索</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
     :root {
-      --bg: #0d1117;
-      --bg2: #161b22;
-      --bg3: #21262d;
-      --border: #30363d;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --accent: #58a6ff;
-      --star: #f0883e;
-      --green: #3fb950;
-      --purple: #a371f7;
-      --pink: #db61a2;
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --border: #30363d;
+      --text: #e6edf3; --text2: #8b949e; --accent: #58a6ff; --star: #f0883e;
+      --green: #3fb950; --purple: #a371f7; --pink: #db61a2;
     }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-    
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
     .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
-    
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-    
+    header { text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
     h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
     h1 a { color: var(--star); text-decoration: none; }
     .stats { color: var(--text2); font-size: 0.85rem; }
-    
+
     /* Search */
-    .search-box { position: relative; margin-bottom: 1rem; }
+    .search-box { position: relative; margin-bottom: 0.75rem; }
     .search-box input {
       width: 100%; padding: 0.85rem 1rem 0.85rem 2.8rem;
       font-size: 1rem; background: var(--bg2); border: 1px solid var(--border);
@@ -52,84 +27,89 @@
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,166,255,0.15); }
-    .search-box::before { content: "🔍"; position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); }
+    .search-box::before { content: "🔍"; position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 1.1rem; }
     
+    .search-modes { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .mode-btn {
+      padding: 0.25rem 0.65rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text2); font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+    }
+    .mode-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .mode-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .mode-btn .beta { background: var(--purple); color: #fff; padding: 0 0.35rem; border-radius: 8px; font-size: 0.65rem; margin-left: 0.25rem; }
+
     /* Filters */
-    .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; align-items: center; }
+    .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; align-items: center; }
     .filter-label { color: var(--text2); font-size: 0.85rem; }
     .filter-btn {
-      padding: 0.3rem 0.7rem; background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 20px; color: var(--text2); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+      padding: 0.28rem 0.65rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text2); font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
     }
     .filter-btn:hover { border-color: var(--text2); color: var(--text); }
     .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
     #langFilter, #catFilter {
-      padding: 0.3rem 0.7rem; background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 20px; color: var(--text); font-size: 0.8rem; outline: none; max-width: 160px;
+      padding: 0.28rem 0.65rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text); font-size: 0.78rem; outline: none; max-width: 150px;
     }
-    
-    /* Tags bar */
-    .tags-bar { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+
+    /* Tags */
+    .tags-bar { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
     .tag-chip {
-      padding: 0.2rem 0.6rem; background: var(--bg3); border-radius: 12px;
-      font-size: 0.75rem; color: var(--purple); cursor: pointer; transition: all 0.2s;
-      border: 1px solid transparent;
+      padding: 0.18rem 0.55rem; background: var(--bg3); border-radius: 12px;
+      font-size: 0.73rem; color: var(--purple); cursor: pointer; transition: all 0.2s; border: 1px solid transparent;
     }
     .tag-chip:hover { border-color: var(--purple); }
     .tag-chip.active { background: var(--purple); color: #fff; }
-    
+
     /* Results */
-    .results-count { color: var(--text2); margin-bottom: 0.75rem; font-size: 0.85rem; }
-    .results-list { display: flex; flex-direction: column; gap: 0.6rem; }
-    
-    .repo-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
-      padding: 0.9rem 1.1rem; transition: border-color 0.2s;
+    .results-count { color: var(--text2); margin-bottom: 0.6rem; font-size: 0.83rem; }
+    .results-list { display: flex; flex-direction: column; gap: 0.55rem; }
+
+    .section-label {
+      font-size: 0.75rem; color: var(--purple); font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; margin: 0.5rem 0 0.25rem 0; padding-left: 0.25rem;
     }
+
+    .repo-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; transition: border-color 0.2s; }
     .repo-card:hover { border-color: var(--text2); }
-    
-    .repo-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
-    .repo-name { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+    .repo-card.semantic { border-left: 3px solid var(--purple); }
+
+    .repo-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; flex-wrap: wrap; }
+    .repo-name { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.93rem; }
     .repo-name:hover { text-decoration: underline; }
-    .repo-stars { color: var(--star); font-size: 0.8rem; white-space: nowrap; }
-    .repo-lang-badge { background: var(--bg3); color: var(--text2); padding: 0.1rem 0.45rem; border-radius: 10px; font-size: 0.72rem; }
-    .repo-cat-badge { background: rgba(163,113,247,0.15); color: var(--purple); padding: 0.1rem 0.45rem; border-radius: 10px; font-size: 0.72rem; }
-    
-    .repo-desc { color: var(--text2); font-size: 0.85rem; margin-bottom: 0.4rem; min-height: 1.2em; }
-    .repo-desc-en { color: var(--text2); font-size: 0.8rem; font-style: italic; opacity: 0.7; }
-    
-    .repo-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .topic {
-      background: var(--bg3); color: var(--purple); padding: 0.08rem 0.4rem;
-      border-radius: 10px; font-size: 0.72rem;
-    }
-    
+    .repo-stars { color: var(--star); font-size: 0.78rem; white-space: nowrap; }
+    .repo-lang-badge { background: var(--bg3); color: var(--text2); padding: 0.08rem 0.4rem; border-radius: 10px; font-size: 0.7rem; }
+    .repo-cat-badge { background: rgba(163,113,247,0.15); color: var(--purple); padding: 0.08rem 0.4rem; border-radius: 10px; font-size: 0.7rem; }
+    .semantic-badge { background: var(--purple); color: #fff; padding: 0.08rem 0.4rem; border-radius: 10px; font-size: 0.68rem; margin-left: auto; }
+
+    .repo-desc { color: var(--text2); font-size: 0.83rem; margin-bottom: 0.35rem; }
+    .repo-desc-en { color: var(--text2); font-size: 0.78rem; font-style: italic; opacity: 0.6; }
+
+    .repo-tags { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+    .topic { background: var(--bg3); color: var(--purple); padding: 0.06rem 0.35rem; border-radius: 10px; font-size: 0.7rem; }
+
     /* Loading */
-    .loading { text-align: center; padding: 3rem; color: var(--text2); }
-    .loading-spinner { font-size: 2rem; animation: spin 1s linear infinite; display: block; margin-bottom: 0.5rem; }
+    .loading { text-align: center; padding: 2.5rem; color: var(--text2); }
+    .loading-spinner { font-size: 1.8rem; animation: spin 1s linear infinite; display: block; margin-bottom: 0.5rem; }
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    
-    .empty { text-align: center; padding: 3rem; color: var(--text2); }
-    
+    .empty { text-align: center; padding: 2.5rem; color: var(--text2); }
+
     /* Pagination */
-    .pagination { display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .pagination { display: flex; justify-content: center; gap: 0.35rem; margin-top: 1.25rem; flex-wrap: wrap; }
     .page-btn {
-      padding: 0.4rem 0.85rem; background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--text); cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
+      padding: 0.35rem 0.75rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); cursor: pointer; transition: all 0.2s; font-size: 0.83rem;
     }
     .page-btn:hover:not(:disabled) { border-color: var(--accent); }
     .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
     .page-btn.active { background: var(--accent); border-color: var(--accent); }
-    
-    footer {
-      text-align: center; margin-top: 2.5rem; padding-top: 1rem;
-      border-top: 1px solid var(--border); color: var(--text2); font-size: 0.8rem;
-    }
+
+    footer { text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--text2); font-size: 0.78rem; }
     footer a { color: var(--accent); }
     mark { background: rgba(255,200,0,0.25); color: inherit; padding: 0 2px; border-radius: 2px; }
-    
-    /* Progress */
-    .cn-badge { background: var(--green); color: #fff; padding: 0.1rem 0.4rem; border-radius: 8px; font-size: 0.68rem; margin-left: 0.3rem; }
+
+    /* Vector loading progress */
+    .vector-status { font-size: 0.75rem; color: var(--purple); margin-left: 0.5rem; }
   </style>
 </head>
 <body>
@@ -138,11 +118,17 @@
       <h1><a href="https://github.com/gandli/stars-archive">⭐ GitHub Stars</a></h1>
       <p class="stats" id="stats">加载中...</p>
     </header>
-    
+
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="搜索项目名称、描述、话题... (支持中文)" autofocus>
+      <input type="text" id="searchInput" placeholder="搜索项目名称、描述、话题... 或用自然语言描述你想要的工具" autofocus>
     </div>
-    
+
+    <div class="search-modes">
+      <button class="mode-btn active" data-mode="hybrid">🔤 关键词</button>
+      <button class="mode-btn" data-mode="semantic">🧠 语义搜索 <span class="beta">BETA</span></button>
+      <span class="vector-status" id="vectorStatus"></span>
+    </div>
+
     <div class="filters">
       <span class="filter-label">分类:</span>
       <select id="catFilter"><option value="">全部</option></select>
@@ -153,19 +139,25 @@
       <button class="filter-btn" data-sort="name">🔤 名称</button>
       <button class="filter-btn" data-sort="updated">🕐 更新</button>
     </div>
-    
+
     <div class="tags-bar" id="tagsBar"></div>
     <div id="resultsCount" class="results-count"></div>
     <div id="results" class="results-list"><div class="loading"><span class="loading-spinner">⏳</span>正在加载数据...</div></div>
     <div id="pagination" class="pagination"></div>
-    
+
     <footer>
       <p>数据来源: <a href="https://github.com/gandli/stars-archive">gandli/stars-archive</a> · 由 <a href="https://github.com/gandli">@gandli</a> 维护 · <a href="https://gandli.github.io/stars-archive/search.html">搜索页面</a></p>
     </footer>
   </div>
 
-  <script>
+  <script type="module">
+    // ========== State ==========
     let allRepos = [];
+    let repoIdToIdx = {};
+    let vectors = {};           // id -> float32 array
+    let embeddings = null;       // pipeline
+    let currentMode = 'hybrid'; // 'hybrid' | 'semantic'
+    let searchMode = 'hybrid';
     let filteredRepos = [];
     let currentPage = 1;
     const PER_PAGE = 25;
@@ -174,111 +166,228 @@
     let currentCat = '';
     let currentTag = '';
     let searchQuery = '';
-    
+    let vectorsLoaded = false;
+
+    // ========== Init ==========
     async function init() {
       try {
-        // Try enriched data first, fall back to original
+        // Load repos
         let dataUrl = 'data/stars-enriched.json';
         let resp = await fetch(dataUrl);
-        if (!resp.ok) { dataUrl = 'data/stars.json'; resp = await fetch(dataUrl); }
+        if (!resp.ok) throw new Error('Failed to load data');
         allRepos = await resp.json();
         
+        // Build id index
+        allRepos.forEach((r, i) => { repoIdToIdx[String(r.id)] = i; });
+
         renderFilterOptions();
         renderTagCloud();
         updateStats();
         bindEvents();
-        
-        const params = new URLSearchParams(location.search);
-        if (params.get('q')) { searchQuery = params.get('q'); document.getElementById('searchInput').value = searchQuery; }
-        if (params.get('lang')) { currentLang = params.get('lang'); document.getElementById('langFilter').value = currentLang; }
-        if (params.get('cat')) { currentCat = params.get('cat'); document.getElementById('catFilter').value = currentCat; }
-        if (params.get('tag')) { currentTag = params.get('tag'); }
-        filterAndRender();
+
+        // Load vectors in background
+        loadVectors();
       } catch (err) {
-        document.getElementById('results').innerHTML = `<div class="empty"><p>❌ 数据加载失败</p><p>${err.message}</p></div>`;
+        document.getElementById('results').innerHTML = `<div class="empty"><p>❌ 数据加载失败: ${err.message}</p></div>`;
       }
     }
-    
+
+    async function loadVectors() {
+      const status = document.getElementById('vectorStatus');
+      try {
+        status.textContent = '📦 加载向量索引...';
+        
+        // Dynamic import of transformers.js
+        const { pipeline, cosSimilarity, meanPooling } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1');
+
+        // Load vectors JSON
+        const vResp = await fetch('data/vectors.json');
+        if (!vResp.ok) throw new Error('vectors.json not found');
+        const vectorsData = await vResp.json();
+        
+        // Convert to float32 arrays
+        let count = 0;
+        for (const [id, arr] of Object.entries(vectorsData)) {
+          vectors[id] = new Float32Array(arr);
+          count++;
+        }
+        
+        // Load embedding model
+        status.textContent = '🤖 加载模型 (~80MB, 缓存后重用)...';
+        embeddings = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+          quantized: true,
+        });
+
+        vectorsLoaded = true;
+        status.textContent = `✅ ${count.toLocaleString()} 向量已加载`;
+        
+        // If user is in semantic mode, re-search
+        if (searchMode === 'semantic' && searchQuery) {
+          filterAndRender();
+        }
+      } catch (err) {
+        status.textContent = '⚠️ 向量加载失败: ' + err.message;
+        console.error('Vector load error:', err);
+      }
+    }
+
     function updateStats() {
       const total = allRepos.length.toLocaleString();
-      const cnCount = allRepos.filter(r => r.desc_cn || (r.desc && hasChinese(r.desc))).length;
-      document.getElementById('stats').innerHTML = 
-        `共 <strong>${total}</strong> 个星标 · <span id="cnBadge" style="color:var(--green)">🌐 ${cnCount} 已翻译中文</span>`;
+      document.getElementById('stats').innerHTML = `共 <strong>${total}</strong> 个星标`;
     }
-    
+
     function hasChinese(text) { return /[\u4e00-\u9fff]/.test(text || ''); }
-    
-    function filterAndRender() {
+
+    // ========== Cosine Similarity ==========
+    function cosineSimilarity(a, b) {
+      let dot = 0, normA = 0, normB = 0;
+      for (let i = 0; i < a.length; i++) {
+        dot += a[i] * b[i];
+        normA += a[i] * a[i];
+        normB += b[i] * b[i];
+      }
+      return dot / (Math.sqrt(normA) * Math.sqrt(normB) + 1e-10);
+    }
+
+    async function semanticSearch(query, topK = 10) {
+      if (!vectorsLoaded || !embeddings) return [];
+      
+      // Embed query
+      const output = await embeddings(query, { pooling: 'mean', normalize: true });
+      const queryVec = new Float32Array(output.data);
+      
+      // KNN search
+      const results = [];
+      for (const [id, vec] of Object.entries(vectors)) {
+        const idx = repoIdToIdx[id];
+        if (idx === undefined) continue;
+        results.push({ idx, score: cosineSimilarity(queryVec, vec) });
+      }
+      
+      results.sort((a, b) => b.score - a.score);
+      return results.slice(0, topK);
+    }
+
+    // ========== Hybrid Search (mode-aware) ==========
+    async function filterAndRender() {
       const q = searchQuery.toLowerCase().trim();
-      filteredRepos = allRepos.filter(repo => {
-        if (currentLang && repo.lang !== currentLang) return false;
-        if (currentCat && repo.lang_category !== currentCat) return false;
-        if (currentTag) {
-          const tags = (repo.auto_tags || []).concat(repo.topics || []).map(t => t.toLowerCase());
-          if (!tags.includes(currentTag.toLowerCase())) return false;
-        }
-        if (q) {
-          const searchable = [repo.name || '', repo.desc || '', repo.desc_cn || '',
-                             (repo.topics || []).join(' '), (repo.auto_tags || []).join(' '), repo.lang || ''
-                            ].join(' ').toLowerCase();
-          if (!searchable.includes(q)) return false;
-        }
-        return true;
-      });
-      
-      if (currentSort === 'stars') filteredRepos.sort((a, b) => (b.stars||0) - (a.stars||0));
-      else if (currentSort === 'name') filteredRepos.sort((a, b) => (a.name||'').localeCompare(b.name||''));
-      else if (currentSort === 'updated') filteredRepos.sort((a, b) => new Date(b.pushed_at||0) - new Date(a.pushed_at||0));
-      
+      let results;
+
+      if (searchMode === 'semantic' && q && vectorsLoaded) {
+        // Pure semantic search
+        const semanticResults = await semanticSearch(q, 15);
+        filteredRepos = semanticResults
+          .filter(r => {
+            // Apply filters on semantic results
+            if (currentLang && allRepos[r.idx].lang !== currentLang) return false;
+            if (currentCat && allRepos[r.idx].lang_category !== currentCat) return false;
+            if (currentTag) {
+              const tags = [...(allRepos[r.idx].topics || []), ...(allRepos[r.idx].auto_tags || [])].map(t => t.toLowerCase());
+              if (!tags.includes(currentTag.toLowerCase())) return false;
+            }
+            return true;
+          })
+          .map(r => ({ ...allRepos[r.idx], _score: r.score, _semantic: true }));
+
+        // Sort by score
+        filteredRepos.sort((a, b) => (b._score || 0) - (a._score || 0));
+      } else {
+        // Keyword + filter search
+        filteredRepos = allRepos.filter(repo => {
+          if (currentLang && repo.lang !== currentLang) return false;
+          if (currentCat && repo.lang_category !== currentCat) return false;
+          if (currentTag) {
+            const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
+            if (!tags.includes(currentTag.toLowerCase())) return false;
+          }
+          if (q) {
+            const searchable = [
+              repo.name || '', repo.desc || '', repo.desc_cn || '',
+              (repo.topics || []).join(' '), (repo.auto_tags || []).join(' '),
+              repo.lang || '', repo.lang_category || ''
+            ].join(' ').toLowerCase();
+            if (!searchable.includes(q)) return false;
+          }
+          return true;
+        });
+
+        if (currentSort === 'stars') filteredRepos.sort((a, b) => (b.stars||0) - (a.stars||0));
+        else if (currentSort === 'name') filteredRepos.sort((a, b) => (a.name||'').localeCompare(b.name||''));
+        else if (currentSort === 'updated') filteredRepos.sort((a, b) => new Date(b.pushed_at||0) - new Date(a.pushed_at||0));
+      }
+
       currentPage = 1;
       renderResults();
     }
-    
+
+    // ========== Rendering ==========
     function renderResults() {
       const container = document.getElementById('results');
       const totalPages = Math.ceil(filteredRepos.length / PER_PAGE);
       const start = (currentPage - 1) * PER_PAGE;
       const end = start + PER_PAGE;
       const pageRepos = filteredRepos.slice(start, end);
-      
+
       if (filteredRepos.length === 0) {
         container.innerHTML = '<div class="empty"><p>🔍 没有找到匹配的项目</p></div>';
         document.getElementById('resultsCount').textContent = '';
         document.getElementById('pagination').innerHTML = '';
         return;
       }
-      
-      document.getElementById('resultsCount').textContent = 
-        `显示 ${start+1}-${Math.min(end, filteredRepos.length)} / 共 ${filteredRepos.length.toLocaleString()} 个`;
-      
-      container.innerHTML = pageRepos.map(repo => {
-        const stars = (repo.stars||0).toLocaleString();
-        const desc = repo.desc || '';
-        const descCn = repo.desc_cn;
-        const hasCn = hasChinese(descCn || desc);
-        const lang = esc(repo.lang || '');
-        const cat = repo.lang_category || '';
-        const topics = (repo.topics || []).slice(0, 6);
-        const autoTags = (repo.auto_tags || []).filter(t => !topics.includes(t)).slice(0, 4);
-        const allTags = [...topics, ...autoTags];
-        
-        return `
-          <div class="repo-card">
-            <div class="repo-header">
-              <a class="repo-name" href="https://github.com/${esc(repo.name)}" target="_blank">${esc(repo.name)}</a>
-              <span class="repo-stars">⭐ ${stars}</span>
-              ${lang ? `<span class="repo-lang-badge">${lang}</span>` : ''}
-              ${cat ? `<span class="repo-cat-badge">${cat}</span>` : ''}
-            </div>
-            <p class="repo-desc">${descCn ? highlight(esc(descCn), searchQuery) : highlight(esc(desc), searchQuery)}</p>
-            ${descCn && hasChinese(desc) && descCn !== desc ? `<p class="repo-desc-en">EN: ${highlight(esc(desc), searchQuery)}</p>` : ''}
-            ${allTags.length ? `<div class="repo-tags">${allTags.map(t => `<span class="topic">${esc(t)}</span>`).join('')}</div>` : ''}
-          </div>`;
-      }).join('');
-      
+
+      const semanticRepos = filteredRepos.filter(r => r._semantic);
+      const keywordRepos = filteredRepos.filter(r => !r._semantic);
+
+      document.getElementById('resultsCount').textContent =
+        searchMode === 'semantic'
+          ? `🔮 语义搜索: ${filteredRepos.length.toLocaleString()} 个相关结果`
+          : `显示 ${start+1}-${Math.min(end, filteredRepos.length)} / 共 ${filteredRepos.length.toLocaleString()} 个`;
+
+      let html = '';
+
+      if (searchMode === 'semantic' && semanticRepos.length > 0) {
+        html += `<div class="section-label">🔮 语义相关项目</div>`;
+        html += pageRepos.filter(r => r._semantic).map(repo => renderRepoCard(repo, true)).join('');
+      }
+
+      const nonSemanticPage = pageRepos.filter(r => !r._semantic);
+      if (nonSemanticPage.length > 0) {
+        if (searchMode === 'semantic') {
+          html += `<div class="section-label" style="margin-top:0.75rem">📋 关键词匹配</div>`;
+        }
+        html += nonSemanticPage.map(repo => renderRepoCard(repo, false)).join('');
+      }
+
+      container.innerHTML = html;
       renderPagination(totalPages);
     }
-    
+
+    function renderRepoCard(repo, isSemantic) {
+      const stars = (repo.stars||0).toLocaleString();
+      const desc = repo.desc || '';
+      const descCn = repo.desc_cn;
+      const lang = esc(repo.lang || '');
+      const cat = repo.lang_category || '';
+      const topics = (repo.topics || []).slice(0, 6);
+      const autoTags = (repo.auto_tags || []).filter(t => !topics.includes(t)).slice(0, 4);
+      const allTags = [...topics, ...autoTags];
+      const isChinese = hasChinese(descCn || desc);
+
+      return `
+        <div class="repo-card${isSemantic ? ' semantic' : ''}">
+          <div class="repo-header">
+            <a class="repo-name" href="https://github.com/${esc(repo.name)}" target="_blank">${esc(repo.name)}</a>
+            <span class="repo-stars">⭐ ${stars}</span>
+            ${lang ? `<span class="repo-lang-badge">${lang}</span>` : ''}
+            ${cat ? `<span class="repo-cat-badge">${cat}</span>` : ''}
+            ${isSemantic ? `<span class="semantic-badge">🔮 ${(repo._score * 100).toFixed(0)}%</span>` : ''}
+          </div>
+          <p class="repo-desc">${isChinese ? highlight(esc(descCn), searchQuery) : highlight(esc(desc), searchQuery)}</p>
+          ${descCn && descCn !== desc && isChinese ? `<p class="repo-desc-en">EN: ${highlight(esc(desc), searchQuery)}</p>` : ''}
+          ${allTags.length ? `<div class="repo-tags">${allTags.map(t => `<span class="topic">${esc(t)}</span>`).join('')}</div>` : ''}
+        </div>`;
+    }
+
     function renderPagination(totalPages) {
       const c = document.getElementById('pagination');
       if (totalPages <= 1) { c.innerHTML = ''; return; }
@@ -293,13 +402,13 @@
         pages.push(totalPages);
       }
       pages.forEach(p => {
-        if (p==='...') html += `<span style="padding:0.4rem;color:var(--text2)">...</span>`;
+        if (p==='...') html += `<span style="padding:0.35rem;color:var(--text2)">...</span>`;
         else html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
       });
       html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>→</button>`;
       c.innerHTML = html;
     }
-    
+
     function goPage(p) {
       const tp = Math.ceil(filteredRepos.length / PER_PAGE);
       if (p < 1 || p > tp) return;
@@ -307,7 +416,7 @@
       renderResults();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    
+
     function renderFilterOptions() {
       const langs = [...new Set(allRepos.map(r => r.lang).filter(Boolean))].sort();
       const cats = [...new Set(allRepos.map(r => r.lang_category).filter(Boolean))].sort();
@@ -316,11 +425,11 @@
       langs.forEach(l => langSel.add(new Option(`${l} (${allRepos.filter(r=>r.lang===l).length})`, l)));
       cats.forEach(c => catSel.add(new Option(`${c} (${allRepos.filter(r=>r.lang_category===c).length})`, c)));
     }
-    
+
     function renderTagCloud() {
       const tagCount = {};
       allRepos.forEach(r => {
-        [(r.topics||[]), (r.auto_tags||[])].flat().forEach(t => {
+        [...(r.topics||[]), ...(r.auto_tags||[])].forEach(t => {
           tagCount[t] = (tagCount[t]||0) + 1;
         });
       });
@@ -330,36 +439,61 @@
         `<span class="tag-chip ${tag===currentTag?'active':''}" onclick="toggleTag('${esc(tag)}')">#${esc(tag)} (${count})</span>`
       ).join('');
     }
-    
+
     function toggleTag(tag) {
       currentTag = currentTag === tag ? '' : tag;
-      document.querySelectorAll('.tag-chip').forEach(t => t.classList.toggle('active', t.textContent.includes(tag) && currentTag));
+      document.querySelectorAll('.tag-chip').forEach(t => t.classList.toggle('active', currentTag && t.textContent.includes(tag)));
       filterAndRender();
     }
-    
+
     function bindEvents() {
       let timer;
       document.getElementById('searchInput').addEventListener('input', e => {
         clearTimeout(timer); timer = setTimeout(() => {
-          searchQuery = e.target.value; filterAndRender(); updateURL();
-        }, 200);
+          searchQuery = e.target.value;
+          filterAndRender();
+          updateURL();
+        }, searchMode === 'semantic' ? 400 : 200);
       });
+
+      // Mode switch
+      document.querySelectorAll('[data-mode]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          searchMode = btn.dataset.mode;
+          filterAndRender();
+        });
+      });
+
       document.querySelectorAll('[data-sort]').forEach(b => b.addEventListener('click', () => {
         document.querySelectorAll('[data-sort]').forEach(x=>x.classList.remove('active'));
         b.classList.add('active'); currentSort = b.dataset.sort; filterAndRender();
       }));
+
       document.getElementById('langFilter').addEventListener('change', e => { currentLang = e.target.value; filterAndRender(); updateURL(); });
       document.getElementById('catFilter').addEventListener('change', e => { currentCat = e.target.value; filterAndRender(); updateURL(); });
+
+      // URL params
+      const params = new URLSearchParams(location.search);
+      if (params.get('q')) { searchQuery = params.get('q'); document.getElementById('searchInput').value = searchQuery; }
+      if (params.get('lang')) { currentLang = params.get('lang'); document.getElementById('langFilter').value = currentLang; }
+      if (params.get('cat')) { currentCat = params.get('cat'); document.getElementById('catFilter').value = currentCat; }
+      if (params.get('mode') === 'semantic') {
+        searchMode = 'semantic';
+        document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === 'semantic'));
+      }
     }
-    
+
     function updateURL() {
       const p = new URLSearchParams();
       if (searchQuery) p.set('q', searchQuery);
       if (currentLang) p.set('lang', currentLang);
       if (currentCat) p.set('cat', currentCat);
+      if (searchMode === 'semantic') p.set('mode', 'semantic');
       history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
     }
-    
+
     function esc(s) {
       const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
     }
@@ -368,7 +502,7 @@
       try { return s.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),'<mark>$1</mark>'); }
       catch { return s; }
     }
-    
+
     window.goPage = goPage;
     init();
   </script>
