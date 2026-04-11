@@ -1,9 +1,44 @@
 {
   "added": [],
-  "removed": [],
+  "removed": [
+    {
+      "id": 1197515131,
+      "name": "VoltAgent/awesome-design-md",
+      "full_name": "VoltAgent/awesome-design-md",
+      "desc": "A collection of DESIGN.md files inspired by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
+      "stars": 42982,
+      "lang": "",
+      "topics": [
+        "awesome-list",
+        "design-md",
+        "design-system",
+        "design-tokens",
+        "figma",
+        "google-stitch",
+        "landing-page",
+        "vibe-coding",
+        "vibe-design"
+      ],
+      "url": "https://github.com/VoltAgent/awesome-design-md",
+      "homepage": "https://github.com/VoltAgent/voltagent",
+      "fork": false,
+      "created_at": "2026-03-31T16:37:01Z",
+      "updated_at": "2026-04-11T14:12:35Z",
+      "pushed_at": "2026-04-10T08:02:34Z",
+      "owner": {
+        "login": "VoltAgent",
+        "type": "Organization",
+        "avatar_url": "https://avatars.githubusercontent.com/u/201282378?v=4"
+      },
+      "license": "MIT",
+      "forks_count": 5368,
+      "open_issues_count": 254,
+      "watchers": 42982
+    }
+  ],
   "summary": {
     "added_count": 0,
-    "removed_count": 0,
-    "net_change": 0
+    "removed_count": 1,
+    "net_change": -1
   }
 }

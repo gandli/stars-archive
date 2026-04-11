@@ -4765,6 +4765,50 @@
     ]
   },
   {
+    "id": 12888993,
+    "name": "home-assistant/core",
+    "full_name": "home-assistant/core",
+    "desc": ":house_with_garden: Open source home automation that puts local control and privacy first.",
+    "stars": 85994,
+    "lang": "Python",
+    "topics": [
+      "asyncio",
+      "hacktoberfest",
+      "home-automation",
+      "internet-of-things",
+      "iot",
+      "mqtt",
+      "python",
+      "raspberry-pi"
+    ],
+    "url": "https://github.com/home-assistant/core",
+    "homepage": "https://www.home-assistant.io",
+    "fork": false,
+    "created_at": "2013-09-17T07:29:48Z",
+    "updated_at": "2026-04-11T13:32:15Z",
+    "pushed_at": "2026-04-11T13:32:01Z",
+    "owner": {
+      "login": "home-assistant",
+      "type": "Organization",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13844975?v=4"
+    },
+    "license": "Apache-2.0",
+    "forks_count": 37206,
+    "open_issues_count": 3578,
+    "watchers": 85994,
+    "lang_category": "Python",
+    "auto_tags": [
+      "asyncio",
+      "mqtt",
+      "hacktoberfest",
+      "home-automation",
+      "raspberry-pi",
+      "iot",
+      "python",
+      "internet-of-things"
+    ]
+  },
+  {
     "id": 382496361,
     "name": "louislam/uptime-kuma",
     "full_name": "louislam/uptime-kuma",
@@ -13557,52 +13601,6 @@
       "windows-11",
       "fluent",
       "files"
-    ]
-  },
-  {
-    "id": 1197515131,
-    "name": "VoltAgent/awesome-design-md",
-    "full_name": "VoltAgent/awesome-design-md",
-    "desc": "A collection of DESIGN.md files inspired by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
-    "stars": 42937,
-    "lang": "",
-    "topics": [
-      "awesome-list",
-      "design-md",
-      "design-system",
-      "design-tokens",
-      "figma",
-      "google-stitch",
-      "landing-page",
-      "vibe-coding",
-      "vibe-design"
-    ],
-    "url": "https://github.com/VoltAgent/awesome-design-md",
-    "homepage": "https://github.com/VoltAgent/voltagent",
-    "fork": false,
-    "created_at": "2026-03-31T16:37:01Z",
-    "updated_at": "2026-04-11T13:47:18Z",
-    "pushed_at": "2026-04-10T08:02:34Z",
-    "owner": {
-      "login": "VoltAgent",
-      "type": "Organization",
-      "avatar_url": "https://avatars.githubusercontent.com/u/201282378?v=4"
-    },
-    "license": "MIT",
-    "forks_count": 5359,
-    "open_issues_count": 254,
-    "watchers": 42937,
-    "lang_category": "TypeScript",
-    "auto_tags": [
-      "figma",
-      "vibe-design",
-      "google-stitch",
-      "design-tokens",
-      "design-md",
-      "vibe-coding",
-      "awesome-list",
-      "design-system",
-      "landing-page"
     ]
   },
   {
