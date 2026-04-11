@@ -1,10 +1,9 @@
-.github/workflows/sync.yml
 name: 📋 Sync GitHub Stars
 
 on:
   schedule:
     - cron: '0 2 * * *'  # 每天凌晨 2:00 UTC = 北京时间 10:00
-  workflow_dispatch:       # 支持手动触发
+  workflow_dispatch:
   push:
     branches: [main]
 
@@ -56,22 +55,15 @@ jobs:
 
       - name: Show sync summary
         run: |
-          echo "## 📋 Sync Summary"
+          echo "## Sync Summary"
           echo "- Total stars: $(jq '. | length' data/stars-enriched.json)"
           echo "- Last synced: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          echo ""
-          if [ -f data/changes.json ]; then
-            echo "### Changes:"
-            echo "- ⭐ New: $(jq '.added | length' data/changes.json)"
-            echo "- ❌ Removed: $(jq '.removed | length' data/changes.json)"
-          fi
 
       - name: Commit & Push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: |
             📋 Sync stars $(date +%Y-%m-%d)
-            $(if [ -f data/changes.json ]; then echo "- ⭐ New: $(jq -r '.added | length' data/changes.json) | ❌ Removed: $(jq -r '.removed | length' data/changes.json)"; fi)
           file_pattern: |
             data/*.json
             README.md
