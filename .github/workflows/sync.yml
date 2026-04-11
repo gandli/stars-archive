@@ -7,6 +7,10 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: sync-stars
+  cancel-in-progress: true
+
 jobs:
   sync:
     runs-on: ubuntu-latest
