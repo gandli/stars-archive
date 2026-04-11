@@ -155,6 +155,7 @@
     let allRepos = [];
     let repoIdToIdx = {};
     let vectors = {};           // id -> float32 array
+    let descCnMap = {};         // id -> Chinese description
     let embeddings = null;       // pipeline
     let currentMode = 'hybrid'; // 'hybrid' | 'semantic'
     let searchMode = 'hybrid';
@@ -187,6 +188,9 @@
 
         // Load vectors in background
         loadVectors();
+
+        // Load Chinese descriptions
+        loadDescCn();
       } catch (err) {
         document.getElementById('results').innerHTML = `<div class="empty"><p>❌ 数据加载失败: ${err.message}</p></div>`;
       }
@@ -229,6 +233,22 @@
         status.textContent = '⚠️ 向量加载失败: ' + err.message;
         console.error('Vector load error:', err);
       }
+    }
+
+    async function loadDescCn() {
+      try {
+        const resp = await fetch('data/desc-cn.json');
+        if (!resp.ok) return;
+        const data = await resp.json();
+        descCnMap = data;
+        
+        const cnCount = Object.keys(descCnMap).length;
+        const cnBadge = document.getElementById('cnBadge');
+        if (cnBadge) cnBadge.textContent = `🌐 ${cnCount} 已翻译中文`;
+        
+        // Re-render if results are showing
+        if (filteredRepos.length > 0) renderResults();
+      } catch {}
     }
 
     function updateStats() {
@@ -399,10 +419,15 @@
       renderPagination(totalPages);
     }
 
+    function getDescCn(repo) {
+      // Priority: repo.desc_cn (embedded) > descCnMap (loaded from desc-cn.json)
+      return repo.desc_cn || descCnMap[String(repo.id)] || '';
+    }
+
     function renderRepoCard(repo, isSemantic) {
       const stars = (repo.stars||0).toLocaleString();
       const desc = repo.desc || '';
-      const descCn = repo.desc_cn;
+      const descCn = getDescCn(repo);
       const lang = esc(repo.lang || '');
       const cat = repo.lang_category || '';
       const topics = (repo.topics || []).slice(0, 6);
