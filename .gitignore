@@ -1,0 +1,15 @@
+# Temp files
+__pycache__/
+*.pyc
+.env
+
+# GitHub Actions workflows (keep in repo)
+!.github/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*～
+*.bak
