@@ -71248,6 +71248,34 @@
     ]
   },
   {
+    "id": 741763034,
+    "name": "chengaopan/AutoMergePublicNodes",
+    "full_name": "chengaopan/AutoMergePublicNodes",
+    "desc": "自动抓取合并互联网上的公开节点。 🚀 免费节点,🚀免费节点订阅,🚀v2ray免费节点,ssr免费节点订阅,clash免费节点订阅,免费梯子,免费翻墙,免费科学上网,免费ss/v2ray/trojan/clash节点,谷歌商店,翻墙梯子",
+    "stars": 7189,
+    "lang": "Python",
+    "topics": [],
+    "url": "https://github.com/chengaopan/AutoMergePublicNodes",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2024-01-11T03:59:55Z",
+    "updated_at": "2026-04-11T13:33:08Z",
+    "pushed_at": "2026-04-11T13:33:01Z",
+    "owner": {
+      "login": "chengaopan",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18641281?v=4"
+    },
+    "license": "NOASSERTION",
+    "forks_count": 1201,
+    "open_issues_count": 16,
+    "watchers": 7189,
+    "lang_category": "JavaScript",
+    "auto_tags": [
+      "Web"
+    ]
+  },
+  {
     "id": 1133707766,
     "name": "multica-ai/multica",
     "full_name": "multica-ai/multica",
@@ -71275,34 +71303,6 @@
       "Database",
       "Open Source",
       "AI"
-    ]
-  },
-  {
-    "id": 741763034,
-    "name": "chengaopan/AutoMergePublicNodes",
-    "full_name": "chengaopan/AutoMergePublicNodes",
-    "desc": "自动抓取合并互联网上的公开节点。 🚀 免费节点,🚀免费节点订阅,🚀v2ray免费节点,ssr免费节点订阅,clash免费节点订阅,免费梯子,免费翻墙,免费科学上网,免费ss/v2ray/trojan/clash节点,谷歌商店,翻墙梯子",
-    "stars": 7189,
-    "lang": "Python",
-    "topics": [],
-    "url": "https://github.com/chengaopan/AutoMergePublicNodes",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2024-01-11T03:59:55Z",
-    "updated_at": "2026-04-11T13:33:08Z",
-    "pushed_at": "2026-04-11T13:33:01Z",
-    "owner": {
-      "login": "chengaopan",
-      "type": "User",
-      "avatar_url": "https://avatars.githubusercontent.com/u/18641281?v=4"
-    },
-    "license": "NOASSERTION",
-    "forks_count": 1201,
-    "open_issues_count": 16,
-    "watchers": 7189,
-    "lang_category": "JavaScript",
-    "auto_tags": [
-      "Web"
     ]
   },
   {
