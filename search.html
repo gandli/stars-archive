@@ -18,6 +18,7 @@
       --star: #f0883e;
       --green: #3fb950;
       --purple: #a371f7;
+      --pink: #db61a2;
     }
     
     body {
@@ -28,391 +29,211 @@
       line-height: 1.6;
     }
     
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
     
     /* Header */
     header {
       text-align: center;
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
       border-bottom: 1px solid var(--border);
     }
     
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
+    h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
+    h1 a { color: var(--star); text-decoration: none; }
+    .stats { color: var(--text2); font-size: 0.85rem; }
     
-    h1 a {
-      color: var(--star);
-      text-decoration: none;
-    }
-    
-    .stats {
-      color: var(--text2);
-      font-size: 0.9rem;
-    }
-    
-    /* Search Box */
-    .search-box {
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-    
+    /* Search */
+    .search-box { position: relative; margin-bottom: 1rem; }
     .search-box input {
-      width: 100%;
-      padding: 1rem 1rem 1rem 3rem;
-      font-size: 1.1rem;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      outline: none;
+      width: 100%; padding: 0.85rem 1rem 0.85rem 2.8rem;
+      font-size: 1rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-    
-    .search-box input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
-    }
-    
-    .search-box::before {
-      content: "🔍";
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-    }
+    .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,166,255,0.15); }
+    .search-box::before { content: "🔍"; position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); }
     
     /* Filters */
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-      align-items: center;
-    }
-    
-    .filter-label {
-      color: var(--text2);
-      font-size: 0.9rem;
-    }
-    
+    .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; align-items: center; }
+    .filter-label { color: var(--text2); font-size: 0.85rem; }
     .filter-btn {
-      padding: 0.35rem 0.75rem;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--text2);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
+      padding: 0.3rem 0.7rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text2); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--text2); color: var(--text); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    #langFilter, #catFilter {
+      padding: 0.3rem 0.7rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text); font-size: 0.8rem; outline: none; max-width: 160px;
     }
     
-    .filter-btn:hover {
-      border-color: var(--text2);
-      color: var(--text);
+    /* Tags bar */
+    .tags-bar { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .tag-chip {
+      padding: 0.2rem 0.6rem; background: var(--bg3); border-radius: 12px;
+      font-size: 0.75rem; color: var(--purple); cursor: pointer; transition: all 0.2s;
+      border: 1px solid transparent;
     }
-    
-    .filter-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-    
-    #langFilter {
-      padding: 0.35rem 0.75rem;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--text);
-      font-size: 0.85rem;
-      outline: none;
-      max-width: 180px;
-    }
+    .tag-chip:hover { border-color: var(--purple); }
+    .tag-chip.active { background: var(--purple); color: #fff; }
     
     /* Results */
-    .results-count {
-      color: var(--text2);
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-    
-    .results-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
+    .results-count { color: var(--text2); margin-bottom: 0.75rem; font-size: 0.85rem; }
+    .results-list { display: flex; flex-direction: column; gap: 0.6rem; }
     
     .repo-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      transition: border-color 0.2s;
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.9rem 1.1rem; transition: border-color 0.2s;
     }
+    .repo-card:hover { border-color: var(--text2); }
     
-    .repo-card:hover {
-      border-color: var(--text2);
-    }
+    .repo-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+    .repo-name { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+    .repo-name:hover { text-decoration: underline; }
+    .repo-stars { color: var(--star); font-size: 0.8rem; white-space: nowrap; }
+    .repo-lang-badge { background: var(--bg3); color: var(--text2); padding: 0.1rem 0.45rem; border-radius: 10px; font-size: 0.72rem; }
+    .repo-cat-badge { background: rgba(163,113,247,0.15); color: var(--purple); padding: 0.1rem 0.45rem; border-radius: 10px; font-size: 0.72rem; }
     
-    .repo-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.5rem;
-      flex-wrap: wrap;
-    }
+    .repo-desc { color: var(--text2); font-size: 0.85rem; margin-bottom: 0.4rem; min-height: 1.2em; }
+    .repo-desc-en { color: var(--text2); font-size: 0.8rem; font-style: italic; opacity: 0.7; }
     
-    .repo-name {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    
-    .repo-name:hover {
-      text-decoration: underline;
-    }
-    
-    .repo-stars {
-      color: var(--star);
-      font-size: 0.85rem;
-      white-space: nowrap;
-    }
-    
-    .repo-lang {
-      background: var(--bg3);
-      color: var(--text2);
-      padding: 0.15rem 0.5rem;
-      border-radius: 12px;
-      font-size: 0.75rem;
-    }
-    
-    .repo-desc {
-      color: var(--text2);
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .repo-topics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-    
+    .repo-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
     .topic {
-      background: var(--bg3);
-      color: var(--purple);
-      padding: 0.1rem 0.5rem;
-      border-radius: 12px;
-      font-size: 0.75rem;
+      background: var(--bg3); color: var(--purple); padding: 0.08rem 0.4rem;
+      border-radius: 10px; font-size: 0.72rem;
     }
     
     /* Loading */
-    .loading {
-      text-align: center;
-      padding: 3rem;
-      color: var(--text2);
-    }
+    .loading { text-align: center; padding: 3rem; color: var(--text2); }
+    .loading-spinner { font-size: 2rem; animation: spin 1s linear infinite; display: block; margin-bottom: 0.5rem; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     
-    .loading-spinner {
-      font-size: 2rem;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    /* Empty */
-    .empty {
-      text-align: center;
-      padding: 3rem;
-      color: var(--text2);
-    }
+    .empty { text-align: center; padding: 3rem; color: var(--text2); }
     
     /* Pagination */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    
+    .pagination { display: flex; justify-content: center; gap: 0.4rem; margin-top: 1.5rem; flex-wrap: wrap; }
     .page-btn {
-      padding: 0.5rem 1rem;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
+      padding: 0.4rem 0.85rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
     }
+    .page-btn:hover:not(:disabled) { border-color: var(--accent); }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .page-btn.active { background: var(--accent); border-color: var(--accent); }
     
-    .page-btn:hover:not(:disabled) {
-      border-color: var(--accent);
-    }
-    
-    .page-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-    
-    .page-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    
-    /* Footer */
     footer {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      color: var(--text2);
-      font-size: 0.85rem;
+      text-align: center; margin-top: 2.5rem; padding-top: 1rem;
+      border-top: 1px solid var(--border); color: var(--text2); font-size: 0.8rem;
     }
+    footer a { color: var(--accent); }
+    mark { background: rgba(255,200,0,0.25); color: inherit; padding: 0 2px; border-radius: 2px; }
     
-    footer a {
-      color: var(--accent);
-    }
-    
-    /* Highlight */
-    mark {
-      background: rgba(255, 200, 0, 0.3);
-      color: inherit;
-      padding: 0 2px;
-      border-radius: 2px;
-    }
+    /* Progress */
+    .cn-badge { background: var(--green); color: #fff; padding: 0.1rem 0.4rem; border-radius: 8px; font-size: 0.68rem; margin-left: 0.3rem; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1><a href="https://github.com/gandli/stars-archive">⭐ GitHub Stars 搜索</a></h1>
+      <h1><a href="https://github.com/gandli/stars-archive">⭐ GitHub Stars</a></h1>
       <p class="stats" id="stats">加载中...</p>
     </header>
     
     <div class="search-box">
-      <input 
-        type="text" 
-        id="searchInput" 
-        placeholder="搜索项目名称、描述、话题... (支持中文)" 
-        autofocus
-      >
+      <input type="text" id="searchInput" placeholder="搜索项目名称、描述、话题... (支持中文)" autofocus>
     </div>
     
     <div class="filters">
+      <span class="filter-label">分类:</span>
+      <select id="catFilter"><option value="">全部</option></select>
       <span class="filter-label">语言:</span>
-      <select id="langFilter">
-        <option value="">全部</option>
-      </select>
+      <select id="langFilter"><option value="">全部</option></select>
       <span class="filter-label">排序:</span>
       <button class="filter-btn active" data-sort="stars">⭐ Stars</button>
       <button class="filter-btn" data-sort="name">🔤 名称</button>
-      <button class="filter-btn" data-sort="updated">🕐 最近更新</button>
+      <button class="filter-btn" data-sort="updated">🕐 更新</button>
     </div>
     
+    <div class="tags-bar" id="tagsBar"></div>
     <div id="resultsCount" class="results-count"></div>
-    <div id="results" class="results-list">
-      <div class="loading">
-        <div class="loading-spinner">⏳</div>
-        <p>正在加载数据...</p>
-      </div>
-    </div>
-    
+    <div id="results" class="results-list"><div class="loading"><span class="loading-spinner">⏳</span>正在加载数据...</div></div>
     <div id="pagination" class="pagination"></div>
     
     <footer>
-      <p>数据来源: <a href="https://github.com/gandli/stars-archive">gandli/stars-archive</a> · 
-      由 <a href="https://github.com/gandli">@gandli</a> 维护</p>
+      <p>数据来源: <a href="https://github.com/gandli/stars-archive">gandli/stars-archive</a> · 由 <a href="https://github.com/gandli">@gandli</a> 维护 · <a href="https://gandli.github.io/stars-archive/search.html">搜索页面</a></p>
     </footer>
   </div>
 
   <script>
-    // ========== Data & State ==========
     let allRepos = [];
     let filteredRepos = [];
     let currentPage = 1;
-    const PER_PAGE = 30;
+    const PER_PAGE = 25;
     let currentSort = 'stars';
     let currentLang = '';
+    let currentCat = '';
+    let currentTag = '';
     let searchQuery = '';
     
-    // ========== Init ==========
     async function init() {
       try {
-        const resp = await fetch('data/stars.json');
-        if (!resp.ok) throw new Error('Failed to load data');
+        // Try enriched data first, fall back to original
+        let dataUrl = 'data/stars-enriched.json';
+        let resp = await fetch(dataUrl);
+        if (!resp.ok) { dataUrl = 'data/stars.json'; resp = await fetch(dataUrl); }
         allRepos = await resp.json();
-        renderLangOptions();
+        
+        renderFilterOptions();
+        renderTagCloud();
         updateStats();
         bindEvents();
-        // URL param support
+        
         const params = new URLSearchParams(location.search);
-        const q = params.get('q');
-        const lang = params.get('lang');
-        if (q) { searchQuery = q; document.getElementById('searchInput').value = q; }
-        if (lang) { currentLang = lang; document.getElementById('langFilter').value = lang; }
+        if (params.get('q')) { searchQuery = params.get('q'); document.getElementById('searchInput').value = searchQuery; }
+        if (params.get('lang')) { currentLang = params.get('lang'); document.getElementById('langFilter').value = currentLang; }
+        if (params.get('cat')) { currentCat = params.get('cat'); document.getElementById('catFilter').value = currentCat; }
+        if (params.get('tag')) { currentTag = params.get('tag'); }
         filterAndRender();
       } catch (err) {
-        document.getElementById('results').innerHTML = `
-          <div class="empty">
-            <p>❌ 数据加载失败: ${err.message}</p>
-            <p><a href="https://github.com/gandli/stars-archive" style="color:var(--accent)">访问仓库</a></p>
-          </div>`;
+        document.getElementById('results').innerHTML = `<div class="empty"><p>❌ 数据加载失败</p><p>${err.message}</p></div>`;
       }
     }
     
     function updateStats() {
-      const langs = new Set(allRepos.map(r => r.lang).filter(Boolean));
-      document.getElementById('stats').textContent = 
-        `共 ${allRepos.length.toLocaleString()} 个星标项目 · ${langs.size} 种语言`;
+      const total = allRepos.length.toLocaleString();
+      const cnCount = allRepos.filter(r => r.desc_cn || (r.desc && hasChinese(r.desc))).length;
+      document.getElementById('stats').innerHTML = 
+        `共 <strong>${total}</strong> 个星标 · <span id="cnBadge" style="color:var(--green)">🌐 ${cnCount} 已翻译中文</span>`;
     }
     
-    // ========== Filtering & Sorting ==========
+    function hasChinese(text) { return /[\u4e00-\u9fff]/.test(text || ''); }
+    
     function filterAndRender() {
       const q = searchQuery.toLowerCase().trim();
-      
       filteredRepos = allRepos.filter(repo => {
-        // Language filter
         if (currentLang && repo.lang !== currentLang) return false;
-        
-        // Search filter
+        if (currentCat && repo.lang_category !== currentCat) return false;
+        if (currentTag) {
+          const tags = (repo.auto_tags || []).concat(repo.topics || []).map(t => t.toLowerCase());
+          if (!tags.includes(currentTag.toLowerCase())) return false;
+        }
         if (q) {
-          const searchable = [
-            repo.name || '',
-            repo.desc || '',
-            (repo.topics || []).join(' '),
-            repo.lang || ''
-          ].join(' ').toLowerCase();
+          const searchable = [repo.name || '', repo.desc || '', repo.desc_cn || '',
+                             (repo.topics || []).join(' '), (repo.auto_tags || []).join(' '), repo.lang || ''
+                            ].join(' ').toLowerCase();
           if (!searchable.includes(q)) return false;
         }
         return true;
       });
       
-      // Sort
-      if (currentSort === 'stars') {
-        filteredRepos.sort((a, b) => (b.stars || 0) - (a.stars || 0));
-      } else if (currentSort === 'name') {
-        filteredRepos.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-      } else if (currentSort === 'updated') {
-        filteredRepos.sort((a, b) => new Date(b.pushed_at || 0) - new Date(a.pushed_at || 0));
-      }
+      if (currentSort === 'stars') filteredRepos.sort((a, b) => (b.stars||0) - (a.stars||0));
+      else if (currentSort === 'name') filteredRepos.sort((a, b) => (a.name||'').localeCompare(b.name||''));
+      else if (currentSort === 'updated') filteredRepos.sort((a, b) => new Date(b.pushed_at||0) - new Date(a.pushed_at||0));
       
       currentPage = 1;
       renderResults();
     }
     
-    // ========== Rendering ==========
     function renderResults() {
       const container = document.getElementById('results');
       const totalPages = Math.ceil(filteredRepos.length / PER_PAGE);
@@ -421,158 +242,134 @@
       const pageRepos = filteredRepos.slice(start, end);
       
       if (filteredRepos.length === 0) {
-        container.innerHTML = `
-          <div class="empty">
-            <p>🔍 没有找到匹配的项目</p>
-            <p>试试其他关键词或筛选条件</p>
-          </div>`;
+        container.innerHTML = '<div class="empty"><p>🔍 没有找到匹配的项目</p></div>';
         document.getElementById('resultsCount').textContent = '';
         document.getElementById('pagination').innerHTML = '';
         return;
       }
       
       document.getElementById('resultsCount').textContent = 
-        `显示 ${start + 1}-${Math.min(end, filteredRepos.length)} / 共 ${filteredRepos.length.toLocaleString()} 个结果`;
+        `显示 ${start+1}-${Math.min(end, filteredRepos.length)} / 共 ${filteredRepos.length.toLocaleString()} 个`;
       
       container.innerHTML = pageRepos.map(repo => {
-        const stars = (repo.stars || 0).toLocaleString();
-        const desc = escapeHtml(repo.desc || '暂无描述');
-        const lang = escapeHtml(repo.lang || '');
-        const topics = (repo.topics || []).slice(0, 8).map(t => 
-          `<span class="topic">${escapeHtml(t)}</span>`
-        ).join('');
+        const stars = (repo.stars||0).toLocaleString();
+        const desc = repo.desc || '';
+        const descCn = repo.desc_cn;
+        const hasCn = hasChinese(descCn || desc);
+        const lang = esc(repo.lang || '');
+        const cat = repo.lang_category || '';
+        const topics = (repo.topics || []).slice(0, 6);
+        const autoTags = (repo.auto_tags || []).filter(t => !topics.includes(t)).slice(0, 4);
+        const allTags = [...topics, ...autoTags];
         
         return `
           <div class="repo-card">
             <div class="repo-header">
-              <a class="repo-name" href="https://github.com/${escapeHtml(repo.name)}" target="_blank">
-                ${escapeHtml(repo.name)}
-              </a>
+              <a class="repo-name" href="https://github.com/${esc(repo.name)}" target="_blank">${esc(repo.name)}</a>
               <span class="repo-stars">⭐ ${stars}</span>
-              ${lang ? `<span class="repo-lang">${lang}</span>` : ''}
+              ${lang ? `<span class="repo-lang-badge">${lang}</span>` : ''}
+              ${cat ? `<span class="repo-cat-badge">${cat}</span>` : ''}
             </div>
-            <p class="repo-desc">${highlight(escapeHtml(desc), searchQuery)}</p>
-            ${topics ? `<div class="repo-topics">${topics}</div>` : ''}
-          </div>
-        `;
+            <p class="repo-desc">${descCn ? highlight(esc(descCn), searchQuery) : highlight(esc(desc), searchQuery)}</p>
+            ${descCn && hasChinese(desc) && descCn !== desc ? `<p class="repo-desc-en">EN: ${highlight(esc(desc), searchQuery)}</p>` : ''}
+            ${allTags.length ? `<div class="repo-tags">${allTags.map(t => `<span class="topic">${esc(t)}</span>`).join('')}</div>` : ''}
+          </div>`;
       }).join('');
       
       renderPagination(totalPages);
     }
     
     function renderPagination(totalPages) {
-      const container = document.getElementById('pagination');
-      if (totalPages <= 1) { container.innerHTML = ''; return; }
-      
-      let html = '';
-      
-      html += `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← 上一页</button>`;
-      
+      const c = document.getElementById('pagination');
+      if (totalPages <= 1) { c.innerHTML = ''; return; }
+      let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>←</button>`;
       const pages = [];
-      if (totalPages <= 7) {
-        for (let i = 1; i <= totalPages; i++) pages.push(i);
-      } else {
+      if (totalPages <= 5) { for (let i=1;i<=totalPages;i++) pages.push(i); }
+      else {
         pages.push(1);
-        if (currentPage > 3) pages.push('...');
-        for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
-        if (currentPage < totalPages - 2) pages.push('...');
+        if (currentPage > 2) pages.push('...');
+        for (let i=Math.max(2,currentPage-1);i<=Math.min(totalPages-1,currentPage+1);i++) pages.push(i);
+        if (currentPage < totalPages-1) pages.push('...');
         pages.push(totalPages);
       }
-      
       pages.forEach(p => {
-        if (p === '...') {
-          html += `<span style="padding:0.5rem;color:var(--text2)">...</span>`;
-        } else {
-          html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p}</button>`;
-        }
+        if (p==='...') html += `<span style="padding:0.4rem;color:var(--text2)">...</span>`;
+        else html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
       });
-      
-      html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页 →</button>`;
-      
-      container.innerHTML = html;
+      html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>→</button>`;
+      c.innerHTML = html;
     }
     
     function goPage(p) {
-      const totalPages = Math.ceil(filteredRepos.length / PER_PAGE);
-      if (p < 1 || p > totalPages) return;
+      const tp = Math.ceil(filteredRepos.length / PER_PAGE);
+      if (p < 1 || p > tp) return;
       currentPage = p;
       renderResults();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
-    function renderLangOptions() {
+    function renderFilterOptions() {
       const langs = [...new Set(allRepos.map(r => r.lang).filter(Boolean))].sort();
-      const select = document.getElementById('langFilter');
-      langs.forEach(lang => {
-        const opt = document.createElement('option');
-        opt.value = lang;
-        opt.textContent = `${lang} (${allRepos.filter(r => r.lang === lang).length})`;
-        select.appendChild(opt);
-      });
+      const cats = [...new Set(allRepos.map(r => r.lang_category).filter(Boolean))].sort();
+      const langSel = document.getElementById('langFilter');
+      const catSel = document.getElementById('catFilter');
+      langs.forEach(l => langSel.add(new Option(`${l} (${allRepos.filter(r=>r.lang===l).length})`, l)));
+      cats.forEach(c => catSel.add(new Option(`${c} (${allRepos.filter(r=>r.lang_category===c).length})`, c)));
     }
     
-    // ========== Events ==========
-    function bindEvents() {
-      // Search input
-      const searchInput = document.getElementById('searchInput');
-      let debounceTimer;
-      searchInput.addEventListener('input', e => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-          searchQuery = e.target.value;
-          filterAndRender();
-          updateURL();
-        }, 200);
-      });
-      
-      // Sort buttons
-      document.querySelectorAll('[data-sort]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentSort = btn.dataset.sort;
-          filterAndRender();
+    function renderTagCloud() {
+      const tagCount = {};
+      allRepos.forEach(r => {
+        [(r.topics||[]), (r.auto_tags||[])].flat().forEach(t => {
+          tagCount[t] = (tagCount[t]||0) + 1;
         });
       });
-      
-      // Lang filter
-      document.getElementById('langFilter').addEventListener('change', e => {
-        currentLang = e.target.value;
-        filterAndRender();
-        updateURL();
+      const sorted = Object.entries(tagCount).sort((a,b)=>b[1]-a[1]).slice(0,40);
+      const bar = document.getElementById('tagsBar');
+      bar.innerHTML = sorted.map(([tag, count]) =>
+        `<span class="tag-chip ${tag===currentTag?'active':''}" onclick="toggleTag('${esc(tag)}')">#${esc(tag)} (${count})</span>`
+      ).join('');
+    }
+    
+    function toggleTag(tag) {
+      currentTag = currentTag === tag ? '' : tag;
+      document.querySelectorAll('.tag-chip').forEach(t => t.classList.toggle('active', t.textContent.includes(tag) && currentTag));
+      filterAndRender();
+    }
+    
+    function bindEvents() {
+      let timer;
+      document.getElementById('searchInput').addEventListener('input', e => {
+        clearTimeout(timer); timer = setTimeout(() => {
+          searchQuery = e.target.value; filterAndRender(); updateURL();
+        }, 200);
       });
+      document.querySelectorAll('[data-sort]').forEach(b => b.addEventListener('click', () => {
+        document.querySelectorAll('[data-sort]').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active'); currentSort = b.dataset.sort; filterAndRender();
+      }));
+      document.getElementById('langFilter').addEventListener('change', e => { currentLang = e.target.value; filterAndRender(); updateURL(); });
+      document.getElementById('catFilter').addEventListener('change', e => { currentCat = e.target.value; filterAndRender(); updateURL(); });
     }
     
     function updateURL() {
-      const params = new URLSearchParams();
-      if (searchQuery) params.set('q', searchQuery);
-      if (currentLang) params.set('lang', currentLang);
-      const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
-      history.replaceState(null, '', newURL);
+      const p = new URLSearchParams();
+      if (searchQuery) p.set('q', searchQuery);
+      if (currentLang) p.set('lang', currentLang);
+      if (currentCat) p.set('cat', currentCat);
+      history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
     }
     
-    // ========== Utils ==========
-    function escapeHtml(str) {
-      const div = document.createElement('div');
-      div.textContent = str;
-      return div.innerHTML;
+    function esc(s) {
+      const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
+    }
+    function highlight(s, q) {
+      if (!q||!q.trim()) return s;
+      try { return s.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),'<mark>$1</mark>'); }
+      catch { return s; }
     }
     
-    function highlight(str, query) {
-      if (!query || !query.trim()) return str;
-      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      try {
-        const regex = new RegExp(`(${escaped})`, 'gi');
-        return str.replace(regex, '<mark>$1</mark>');
-      } catch {
-        return str;
-      }
-    }
-    
-    // Expose goPage globally
     window.goPage = goPage;
-    
-    // Start
     init();
   </script>
 </body>
