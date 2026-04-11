@@ -4765,50 +4765,6 @@
     ]
   },
   {
-    "id": 12888993,
-    "name": "home-assistant/core",
-    "full_name": "home-assistant/core",
-    "desc": ":house_with_garden: Open source home automation that puts local control and privacy first.",
-    "stars": 85994,
-    "lang": "Python",
-    "topics": [
-      "asyncio",
-      "hacktoberfest",
-      "home-automation",
-      "internet-of-things",
-      "iot",
-      "mqtt",
-      "python",
-      "raspberry-pi"
-    ],
-    "url": "https://github.com/home-assistant/core",
-    "homepage": "https://www.home-assistant.io",
-    "fork": false,
-    "created_at": "2013-09-17T07:29:48Z",
-    "updated_at": "2026-04-11T13:32:15Z",
-    "pushed_at": "2026-04-11T13:32:01Z",
-    "owner": {
-      "login": "home-assistant",
-      "type": "Organization",
-      "avatar_url": "https://avatars.githubusercontent.com/u/13844975?v=4"
-    },
-    "license": "Apache-2.0",
-    "forks_count": 37206,
-    "open_issues_count": 3578,
-    "watchers": 85994,
-    "lang_category": "Python",
-    "auto_tags": [
-      "asyncio",
-      "mqtt",
-      "hacktoberfest",
-      "home-automation",
-      "raspberry-pi",
-      "iot",
-      "python",
-      "internet-of-things"
-    ]
-  },
-  {
     "id": 382496361,
     "name": "louislam/uptime-kuma",
     "full_name": "louislam/uptime-kuma",
@@ -13389,6 +13345,53 @@
       "psiphon",
       "daze"
     ]
+  },
+  {
+    "id": 1197515131,
+    "name": "VoltAgent/awesome-design-md",
+    "full_name": "VoltAgent/awesome-design-md",
+    "desc": "A collection of DESIGN.md files inspired by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
+    "stars": 43129,
+    "lang": "",
+    "topics": [
+      "awesome-list",
+      "design-md",
+      "design-system",
+      "design-tokens",
+      "figma",
+      "google-stitch",
+      "landing-page",
+      "vibe-coding",
+      "vibe-design"
+    ],
+    "url": "https://github.com/VoltAgent/awesome-design-md",
+    "homepage": "https://github.com/VoltAgent/voltagent",
+    "fork": false,
+    "created_at": "2026-03-31T16:37:01Z",
+    "updated_at": "2026-04-11T15:36:11Z",
+    "pushed_at": "2026-04-11T15:20:04Z",
+    "owner": {
+      "login": "VoltAgent",
+      "type": "Organization",
+      "avatar_url": "https://avatars.githubusercontent.com/u/201282378?v=4"
+    },
+    "license": "MIT",
+    "forks_count": 5391,
+    "open_issues_count": 254,
+    "watchers": 43129,
+    "lang_category": "TypeScript",
+    "auto_tags": [
+      "vibe-design",
+      "figma",
+      "vibe-coding",
+      "design-tokens",
+      "design-md",
+      "landing-page",
+      "awesome-list",
+      "design-system",
+      "google-stitch"
+    ],
+    "desc_cn": "A collection of DESIGN.md files inspired by popular brand design systems. Drop one into your project and let coding agents generate a matching UI."
   },
   {
     "id": 519832,
@@ -24160,6 +24163,55 @@
       "github",
       "awesome-list"
     ]
+  },
+  {
+    "id": 1130809465,
+    "name": "Yeachan-Heo/oh-my-claudecode",
+    "full_name": "Yeachan-Heo/oh-my-claudecode",
+    "desc": "Teams-first Multi-agent orchestration for Claude Code",
+    "stars": 27629,
+    "lang": "TypeScript",
+    "topics": [
+      "agentic-coding",
+      "ai-agents",
+      "automation",
+      "claude",
+      "claude-code",
+      "multi-agent-systems",
+      "oh-my-opencode",
+      "opencode",
+      "parallel-execution",
+      "vibe-coding"
+    ],
+    "url": "https://github.com/Yeachan-Heo/oh-my-claudecode",
+    "homepage": "https://yeachan-heo.github.io/oh-my-claudecode-website",
+    "fork": false,
+    "created_at": "2026-01-09T03:36:29Z",
+    "updated_at": "2026-04-11T15:34:10Z",
+    "pushed_at": "2026-04-11T13:25:44Z",
+    "owner": {
+      "login": "Yeachan-Heo",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54757707?v=4"
+    },
+    "license": "MIT",
+    "forks_count": 2546,
+    "open_issues_count": 2,
+    "watchers": 27629,
+    "lang_category": "🤖 AI/ML",
+    "auto_tags": [
+      "ai-agents",
+      "vibe-coding",
+      "opencode",
+      "automation",
+      "agentic-coding",
+      "multi-agent-systems",
+      "parallel-execution",
+      "claude",
+      "claude-code",
+      "AI"
+    ],
+    "desc_cn": null
   },
   {
     "id": 196284711,
