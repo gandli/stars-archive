@@ -2331,51 +2331,6 @@
     ]
   },
   {
-    "id": 27193779,
-    "name": "nodejs/node",
-    "full_name": "nodejs/node",
-    "desc": "Node.js JavaScript runtime ✨🐢🚀✨",
-    "stars": 116676,
-    "lang": "JavaScript",
-    "topics": [
-      "javascript",
-      "js",
-      "linux",
-      "macos",
-      "mit",
-      "node",
-      "nodejs",
-      "runtime",
-      "windows"
-    ],
-    "url": "https://github.com/nodejs/node",
-    "homepage": "https://nodejs.org",
-    "fork": false,
-    "created_at": "2014-11-26T19:57:11Z",
-    "updated_at": "2026-04-11T13:13:41Z",
-    "pushed_at": "2026-04-11T10:37:30Z",
-    "owner": {
-      "login": "nodejs",
-      "type": "Organization",
-      "avatar_url": "https://avatars.githubusercontent.com/u/9950313?v=4"
-    },
-    "license": "NOASSERTION",
-    "forks_count": 35315,
-    "open_issues_count": 2603,
-    "watchers": 116676,
-    "lang_category": "JavaScript",
-    "auto_tags": [
-      "javascript",
-      "nodejs",
-      "runtime",
-      "node",
-      "windows",
-      "mit",
-      "linux",
-      "macos"
-    ]
-  },
-  {
     "id": 14098069,
     "name": "justjavac/free-programming-books-zh_CN",
     "full_name": "justjavac/free-programming-books-zh_CN",
@@ -68760,6 +68715,35 @@
     ]
   },
   {
+    "id": 1076863218,
+    "name": "MoonshotAI/kimi-cli",
+    "full_name": "MoonshotAI/kimi-cli",
+    "desc": "Kimi Code CLI is your next CLI agent.",
+    "stars": 7730,
+    "lang": "Python",
+    "topics": [],
+    "url": "https://github.com/MoonshotAI/kimi-cli",
+    "homepage": "https://moonshotai.github.io/kimi-cli/",
+    "fork": false,
+    "created_at": "2025-10-15T12:58:03Z",
+    "updated_at": "2026-04-11T13:07:11Z",
+    "pushed_at": "2026-04-10T16:22:57Z",
+    "owner": {
+      "login": "MoonshotAI",
+      "type": "Organization",
+      "avatar_url": "https://avatars.githubusercontent.com/u/129152888?v=4"
+    },
+    "license": "Apache-2.0",
+    "forks_count": 835,
+    "open_issues_count": 362,
+    "watchers": 7730,
+    "lang_category": "AI/ML",
+    "auto_tags": [
+      "CLI Tool",
+      "AI"
+    ]
+  },
+  {
     "id": 501292795,
     "name": "frappe/hrms",
     "full_name": "frappe/hrms",
@@ -68815,35 +68799,6 @@
       "Framework",
       "exits",
       "javascript"
-    ]
-  },
-  {
-    "id": 1076863218,
-    "name": "MoonshotAI/kimi-cli",
-    "full_name": "MoonshotAI/kimi-cli",
-    "desc": "Kimi Code CLI is your next CLI agent.",
-    "stars": 7730,
-    "lang": "Python",
-    "topics": [],
-    "url": "https://github.com/MoonshotAI/kimi-cli",
-    "homepage": "https://moonshotai.github.io/kimi-cli/",
-    "fork": false,
-    "created_at": "2025-10-15T12:58:03Z",
-    "updated_at": "2026-04-11T13:07:11Z",
-    "pushed_at": "2026-04-10T16:22:57Z",
-    "owner": {
-      "login": "MoonshotAI",
-      "type": "Organization",
-      "avatar_url": "https://avatars.githubusercontent.com/u/129152888?v=4"
-    },
-    "license": "Apache-2.0",
-    "forks_count": 835,
-    "open_issues_count": 362,
-    "watchers": 7730,
-    "lang_category": "AI/ML",
-    "auto_tags": [
-      "CLI Tool",
-      "AI"
     ]
   },
   {
@@ -71322,6 +71277,34 @@
     ]
   },
   {
+    "id": 741763034,
+    "name": "chengaopan/AutoMergePublicNodes",
+    "full_name": "chengaopan/AutoMergePublicNodes",
+    "desc": "自动抓取合并互联网上的公开节点。 🚀 免费节点,🚀免费节点订阅,🚀v2ray免费节点,ssr免费节点订阅,clash免费节点订阅,免费梯子,免费翻墙,免费科学上网,免费ss/v2ray/trojan/clash节点,谷歌商店,翻墙梯子",
+    "stars": 7189,
+    "lang": "Python",
+    "topics": [],
+    "url": "https://github.com/chengaopan/AutoMergePublicNodes",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2024-01-11T03:59:55Z",
+    "updated_at": "2026-04-11T13:33:08Z",
+    "pushed_at": "2026-04-11T13:33:01Z",
+    "owner": {
+      "login": "chengaopan",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18641281?v=4"
+    },
+    "license": "NOASSERTION",
+    "forks_count": 1201,
+    "open_issues_count": 16,
+    "watchers": 7189,
+    "lang_category": "JavaScript",
+    "auto_tags": [
+      "Web"
+    ]
+  },
+  {
     "id": 1133707766,
     "name": "multica-ai/multica",
     "full_name": "multica-ai/multica",
@@ -71349,34 +71332,6 @@
       "Database",
       "Open Source",
       "AI"
-    ]
-  },
-  {
-    "id": 741763034,
-    "name": "chengaopan/AutoMergePublicNodes",
-    "full_name": "chengaopan/AutoMergePublicNodes",
-    "desc": "自动抓取合并互联网上的公开节点。 🚀 免费节点,🚀免费节点订阅,🚀v2ray免费节点,ssr免费节点订阅,clash免费节点订阅,免费梯子,免费翻墙,免费科学上网,免费ss/v2ray/trojan/clash节点,谷歌商店,翻墙梯子",
-    "stars": 7189,
-    "lang": "Python",
-    "topics": [],
-    "url": "https://github.com/chengaopan/AutoMergePublicNodes",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2024-01-11T03:59:55Z",
-    "updated_at": "2026-04-11T13:33:08Z",
-    "pushed_at": "2026-04-11T13:33:01Z",
-    "owner": {
-      "login": "chengaopan",
-      "type": "User",
-      "avatar_url": "https://avatars.githubusercontent.com/u/18641281?v=4"
-    },
-    "license": "NOASSERTION",
-    "forks_count": 1201,
-    "open_issues_count": 16,
-    "watchers": 7189,
-    "lang_category": "JavaScript",
-    "auto_tags": [
-      "Web"
     ]
   },
   {
@@ -100590,6 +100545,51 @@
     ]
   },
   {
+    "id": 447153396,
+    "name": "huynhsontung/Screenbox",
+    "full_name": "huynhsontung/Screenbox",
+    "desc": "LibVLC-based media player for the Universal Windows Platform",
+    "stars": 3339,
+    "lang": "C#",
+    "topics": [
+      "csharp",
+      "dotnet",
+      "media-player",
+      "multimedia",
+      "player",
+      "uwp",
+      "vlc"
+    ],
+    "url": "https://github.com/huynhsontung/Screenbox",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2022-01-12T09:25:48Z",
+    "updated_at": "2026-04-11T21:29:10Z",
+    "pushed_at": "2026-04-11T17:18:16Z",
+    "owner": {
+      "login": "huynhsontung",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31434093?v=4"
+    },
+    "license": "GPL-3.0",
+    "forks_count": 142,
+    "open_issues_count": 209,
+    "watchers": 3339,
+    "lang_category": "C#",
+    "auto_tags": [
+      "Library",
+      "vlc",
+      "csharp",
+      "Database",
+      "multimedia",
+      "dotnet",
+      "media-player",
+      "uwp",
+      "player"
+    ],
+    "desc_cn": null
+  },
+  {
     "id": 404921727,
     "name": "luolongfei/freenom",
     "full_name": "luolongfei/freenom",
@@ -106190,6 +106190,52 @@
     ]
   },
   {
+    "id": 471249443,
+    "name": "haydenbleasel/ultracite",
+    "full_name": "haydenbleasel/ultracite",
+    "desc": "A highly opinionated, zero-configuration linter and formatter.",
+    "stars": 2806,
+    "lang": "TypeScript",
+    "topics": [
+      "biome",
+      "cursor",
+      "formatter",
+      "linter",
+      "mcp",
+      "vscode",
+      "windsurf",
+      "zed"
+    ],
+    "url": "https://github.com/haydenbleasel/ultracite",
+    "homepage": "https://www.ultracite.ai/",
+    "fork": false,
+    "created_at": "2022-03-18T05:42:54Z",
+    "updated_at": "2026-04-12T04:39:50Z",
+    "pushed_at": "2026-04-11T23:23:05Z",
+    "owner": {
+      "login": "haydenbleasel",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4142719?v=4"
+    },
+    "license": "MIT",
+    "forks_count": 103,
+    "open_issues_count": 3,
+    "watchers": 2806,
+    "lang_category": "TypeScript",
+    "auto_tags": [
+      "mcp",
+      "biome",
+      "linter",
+      "Database",
+      "zed",
+      "vscode",
+      "cursor",
+      "formatter",
+      "windsurf"
+    ],
+    "desc_cn": null
+  },
+  {
     "id": 397672812,
     "name": "eastlakeside/awesome-productivity-cn",
     "full_name": "eastlakeside/awesome-productivity-cn",
@@ -107091,6 +107137,49 @@
     ]
   },
   {
+    "id": 723409390,
+    "name": "GUI-for-Cores/GUI.for.Clash",
+    "full_name": "GUI-for-Cores/GUI.for.Clash",
+    "desc": "Modern, lightweight desktop app built with Wails (Go) and Vue 3. Efficient, cross-platform, and fast.",
+    "stars": 2706,
+    "lang": "TypeScript",
+    "topics": [
+      "clash",
+      "gui",
+      "rolldown-vite",
+      "typescript",
+      "vue3",
+      "wails"
+    ],
+    "url": "https://github.com/GUI-for-Cores/GUI.for.Clash",
+    "homepage": "https://gui-for-cores.github.io/",
+    "fork": false,
+    "created_at": "2023-11-25T15:22:35Z",
+    "updated_at": "2026-04-11T10:06:36Z",
+    "pushed_at": "2026-04-07T15:52:52Z",
+    "owner": {
+      "login": "GUI-for-Cores",
+      "type": "Organization",
+      "avatar_url": "https://avatars.githubusercontent.com/u/155597858?v=4"
+    },
+    "license": "GPL-3.0",
+    "forks_count": 163,
+    "open_issues_count": 0,
+    "watchers": 2706,
+    "lang_category": "TypeScript",
+    "auto_tags": [
+      "clash",
+      "wails",
+      "Open Source",
+      "rolldown-vite",
+      "gui",
+      "typescript",
+      "vue3",
+      "Database",
+      "AI"
+    ]
+  },
+  {
     "id": 247593117,
     "name": "zhangyuang/ssr",
     "full_name": "zhangyuang/ssr",
@@ -107146,49 +107235,6 @@
       "pinia",
       "midway",
       "vue"
-    ]
-  },
-  {
-    "id": 723409390,
-    "name": "GUI-for-Cores/GUI.for.Clash",
-    "full_name": "GUI-for-Cores/GUI.for.Clash",
-    "desc": "Modern, lightweight desktop app built with Wails (Go) and Vue 3. Efficient, cross-platform, and fast.",
-    "stars": 2706,
-    "lang": "TypeScript",
-    "topics": [
-      "clash",
-      "gui",
-      "rolldown-vite",
-      "typescript",
-      "vue3",
-      "wails"
-    ],
-    "url": "https://github.com/GUI-for-Cores/GUI.for.Clash",
-    "homepage": "https://gui-for-cores.github.io/",
-    "fork": false,
-    "created_at": "2023-11-25T15:22:35Z",
-    "updated_at": "2026-04-11T10:06:36Z",
-    "pushed_at": "2026-04-07T15:52:52Z",
-    "owner": {
-      "login": "GUI-for-Cores",
-      "type": "Organization",
-      "avatar_url": "https://avatars.githubusercontent.com/u/155597858?v=4"
-    },
-    "license": "GPL-3.0",
-    "forks_count": 163,
-    "open_issues_count": 0,
-    "watchers": 2706,
-    "lang_category": "TypeScript",
-    "auto_tags": [
-      "clash",
-      "wails",
-      "Open Source",
-      "rolldown-vite",
-      "gui",
-      "typescript",
-      "vue3",
-      "Database",
-      "AI"
     ]
   },
   {
@@ -109765,32 +109811,6 @@
     "open_issues_count": 68,
     "watchers": 2513,
     "lang_category": "Python",
-    "auto_tags": []
-  },
-  {
-    "id": 886508276,
-    "name": "Zephyruso/zashboard",
-    "full_name": "Zephyruso/zashboard",
-    "desc": "",
-    "stars": 2507,
-    "lang": "Vue",
-    "topics": [],
-    "url": "https://github.com/Zephyruso/zashboard",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2024-11-11T05:17:05Z",
-    "updated_at": "2026-04-11T13:45:10Z",
-    "pushed_at": "2026-04-10T10:10:54Z",
-    "owner": {
-      "login": "Zephyruso",
-      "type": "User",
-      "avatar_url": "https://avatars.githubusercontent.com/u/176294927?v=4"
-    },
-    "license": "MIT",
-    "forks_count": 278,
-    "open_issues_count": 6,
-    "watchers": 2507,
-    "lang_category": "Vue",
     "auto_tags": []
   },
   {
@@ -145549,51 +145569,6 @@
     ]
   },
   {
-    "id": 172209713,
-    "name": "elgohr/Publish-Docker-Github-Action",
-    "full_name": "elgohr/Publish-Docker-Github-Action",
-    "desc": "A Github Action used to build and publish Docker images",
-    "stars": 793,
-    "lang": "Shell",
-    "topics": [
-      "actions",
-      "aws-ecr",
-      "build",
-      "continuous-delivery",
-      "docker",
-      "github-actions",
-      "publishing",
-      "push"
-    ],
-    "url": "https://github.com/elgohr/Publish-Docker-Github-Action",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2019-02-23T12:07:01Z",
-    "updated_at": "2026-04-07T08:33:27Z",
-    "pushed_at": "2026-04-07T08:33:17Z",
-    "owner": {
-      "login": "elgohr",
-      "type": "User",
-      "avatar_url": "https://avatars.githubusercontent.com/u/19632501?v=4"
-    },
-    "license": "MIT",
-    "forks_count": 205,
-    "open_issues_count": 0,
-    "watchers": 793,
-    "lang_category": "Docker",
-    "auto_tags": [
-      "actions",
-      "github-actions",
-      "push",
-      "Docker",
-      "build",
-      "docker",
-      "aws-ecr",
-      "publishing",
-      "continuous-delivery"
-    ]
-  },
-  {
     "id": 919664598,
     "name": "WINBIGFOX/TimeScribe",
     "full_name": "WINBIGFOX/TimeScribe",
@@ -145648,6 +145623,51 @@
       "no-cloud",
       "laravel",
       "time-tracking"
+    ]
+  },
+  {
+    "id": 172209713,
+    "name": "elgohr/Publish-Docker-Github-Action",
+    "full_name": "elgohr/Publish-Docker-Github-Action",
+    "desc": "A Github Action used to build and publish Docker images",
+    "stars": 793,
+    "lang": "Shell",
+    "topics": [
+      "actions",
+      "aws-ecr",
+      "build",
+      "continuous-delivery",
+      "docker",
+      "github-actions",
+      "publishing",
+      "push"
+    ],
+    "url": "https://github.com/elgohr/Publish-Docker-Github-Action",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2019-02-23T12:07:01Z",
+    "updated_at": "2026-04-07T08:33:27Z",
+    "pushed_at": "2026-04-07T08:33:17Z",
+    "owner": {
+      "login": "elgohr",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19632501?v=4"
+    },
+    "license": "MIT",
+    "forks_count": 205,
+    "open_issues_count": 0,
+    "watchers": 793,
+    "lang_category": "Docker",
+    "auto_tags": [
+      "actions",
+      "github-actions",
+      "push",
+      "Docker",
+      "build",
+      "docker",
+      "aws-ecr",
+      "publishing",
+      "continuous-delivery"
     ]
   },
   {
@@ -163344,6 +163364,45 @@
     ]
   },
   {
+    "id": 132575997,
+    "name": "Calinou/scoop-games",
+    "full_name": "Calinou/scoop-games",
+    "desc": "Scoop bucket for open source/freeware games and game-related tools",
+    "stars": 344,
+    "lang": "PowerShell",
+    "topics": [
+      "games",
+      "open-source-game",
+      "scoop",
+      "scoop-bucket"
+    ],
+    "url": "https://github.com/Calinou/scoop-games",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2018-05-08T08:09:16Z",
+    "updated_at": "2026-04-12T01:03:57Z",
+    "pushed_at": "2026-04-12T01:03:51Z",
+    "owner": {
+      "login": "Calinou",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/180032?v=4"
+    },
+    "license": "CC0-1.0",
+    "forks_count": 198,
+    "open_issues_count": 122,
+    "watchers": 344,
+    "lang_category": "PowerShell",
+    "auto_tags": [
+      "open-source-game",
+      "scoop",
+      "scoop-bucket",
+      "games",
+      "Open Source",
+      "CLI Tool"
+    ],
+    "desc_cn": null
+  },
+  {
     "id": 824675966,
     "name": "tamim1089/HikvisionExploiter",
     "full_name": "tamim1089/HikvisionExploiter",
@@ -169197,32 +169256,6 @@
     ]
   },
   {
-    "id": 767380913,
-    "name": "moonbitlang/moonbit-course",
-    "full_name": "moonbitlang/moonbit-course",
-    "desc": "",
-    "stars": 230,
-    "lang": "MoonBit",
-    "topics": [],
-    "url": "https://github.com/moonbitlang/moonbit-course",
-    "homepage": "",
-    "fork": false,
-    "created_at": "2024-03-05T07:36:11Z",
-    "updated_at": "2026-04-10T08:30:37Z",
-    "pushed_at": "2026-04-10T07:55:26Z",
-    "owner": {
-      "login": "moonbitlang",
-      "type": "Organization",
-      "avatar_url": "https://avatars.githubusercontent.com/u/124848646?v=4"
-    },
-    "license": "",
-    "forks_count": 18,
-    "open_issues_count": 0,
-    "watchers": 230,
-    "lang_category": "MoonBit",
-    "auto_tags": []
-  },
-  {
     "id": 682257747,
     "name": "nellavio/nellavio",
     "full_name": "nellavio/nellavio",
@@ -169274,6 +169307,32 @@
       "typescript",
       "shadcn-ui"
     ]
+  },
+  {
+    "id": 767380913,
+    "name": "moonbitlang/moonbit-course",
+    "full_name": "moonbitlang/moonbit-course",
+    "desc": "",
+    "stars": 230,
+    "lang": "MoonBit",
+    "topics": [],
+    "url": "https://github.com/moonbitlang/moonbit-course",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2024-03-05T07:36:11Z",
+    "updated_at": "2026-04-10T08:30:37Z",
+    "pushed_at": "2026-04-10T07:55:26Z",
+    "owner": {
+      "login": "moonbitlang",
+      "type": "Organization",
+      "avatar_url": "https://avatars.githubusercontent.com/u/124848646?v=4"
+    },
+    "license": "",
+    "forks_count": 18,
+    "open_issues_count": 0,
+    "watchers": 230,
+    "lang_category": "MoonBit",
+    "auto_tags": []
   },
   {
     "id": 706807360,
@@ -177197,6 +177256,52 @@
     "auto_tags": []
   },
   {
+    "id": 1203495713,
+    "name": "Neighbor-Z/SwiftMTP",
+    "full_name": "Neighbor-Z/SwiftMTP",
+    "desc": "A modern MTP device management tool for macOS.",
+    "stars": 117,
+    "lang": "Swift",
+    "topics": [
+      "android",
+      "file-transfer",
+      "macos",
+      "mtp",
+      "swift",
+      "tools",
+      "utility"
+    ],
+    "url": "https://github.com/Neighbor-Z/SwiftMTP",
+    "homepage": "https://neighbor-z.github.io/swiftmtp-website",
+    "fork": false,
+    "created_at": "2026-04-07T05:00:29Z",
+    "updated_at": "2026-04-12T04:37:27Z",
+    "pushed_at": "2026-04-11T14:19:20Z",
+    "owner": {
+      "login": "Neighbor-Z",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/243284857?v=4"
+    },
+    "license": "GPL-2.0",
+    "forks_count": 1,
+    "open_issues_count": 1,
+    "watchers": 117,
+    "lang_category": "Swift",
+    "auto_tags": [
+      "Library",
+      "macos",
+      "mtp",
+      "utility",
+      "Mobile",
+      "file-transfer",
+      "android",
+      "swift",
+      "tools",
+      "CLI Tool"
+    ],
+    "desc_cn": null
+  },
+  {
     "id": 984948954,
     "name": "bestxxt/SmartLedger",
     "full_name": "bestxxt/SmartLedger",
@@ -182468,6 +182573,33 @@
     "watchers": 54,
     "lang_category": "Other",
     "auto_tags": []
+  },
+  {
+    "id": 841723911,
+    "name": "seriotonctf/Red-Team-Notes",
+    "full_name": "seriotonctf/Red-Team-Notes",
+    "desc": "",
+    "stars": 53,
+    "lang": "",
+    "topics": [],
+    "url": "https://github.com/seriotonctf/Red-Team-Notes",
+    "homepage": "",
+    "fork": false,
+    "created_at": "2024-08-12T23:28:51Z",
+    "updated_at": "2026-04-12T04:34:50Z",
+    "pushed_at": "2026-04-10T18:36:16Z",
+    "owner": {
+      "login": "seriotonctf",
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/55143192?v=4"
+    },
+    "license": "",
+    "forks_count": 5,
+    "open_issues_count": 0,
+    "watchers": 53,
+    "lang_category": "Security",
+    "auto_tags": [],
+    "desc_cn": null
   },
   {
     "id": 90461639,

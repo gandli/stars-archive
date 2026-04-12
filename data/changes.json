@@ -1,37 +1,11 @@
 {
   "added": [
     {
-      "id": 1129759677,
-      "name": "snarktank/ralph",
-      "full_name": "snarktank/ralph",
-      "desc": "Ralph is an autonomous AI agent loop that runs repeatedly until all PRD items are complete. ",
-      "stars": 15270,
-      "lang": "TypeScript",
-      "topics": [],
-      "url": "https://github.com/snarktank/ralph",
-      "homepage": "https://x.com/ryancarson/status/2008548371712135632",
-      "fork": false,
-      "created_at": "2026-01-07T14:45:10Z",
-      "updated_at": "2026-04-11T16:30:37Z",
-      "pushed_at": "2026-02-02T01:46:21Z",
-      "owner": {
-        "login": "snarktank",
-        "type": "User",
-        "avatar_url": "https://avatars.githubusercontent.com/u/152063952?v=4"
-      },
-      "license": "MIT",
-      "forks_count": 1562,
-      "open_issues_count": 63,
-      "watchers": 15270
-    }
-  ],
-  "removed": [
-    {
       "id": 447153396,
       "name": "huynhsontung/Screenbox",
       "full_name": "huynhsontung/Screenbox",
       "desc": "LibVLC-based media player for the Universal Windows Platform",
-      "stars": 3338,
+      "stars": 3339,
       "lang": "C#",
       "topics": [
         "csharp",
@@ -46,17 +20,50 @@
       "homepage": "",
       "fork": false,
       "created_at": "2022-01-12T09:25:48Z",
-      "updated_at": "2026-04-11T09:11:23Z",
-      "pushed_at": "2026-04-09T20:12:13Z",
+      "updated_at": "2026-04-11T21:29:10Z",
+      "pushed_at": "2026-04-11T17:18:16Z",
       "owner": {
         "login": "huynhsontung",
         "type": "User",
         "avatar_url": "https://avatars.githubusercontent.com/u/31434093?v=4"
       },
       "license": "GPL-3.0",
-      "forks_count": 141,
-      "open_issues_count": 208,
-      "watchers": 3338
+      "forks_count": 142,
+      "open_issues_count": 209,
+      "watchers": 3339
+    },
+    {
+      "id": 471249443,
+      "name": "haydenbleasel/ultracite",
+      "full_name": "haydenbleasel/ultracite",
+      "desc": "A highly opinionated, zero-configuration linter and formatter.",
+      "stars": 2806,
+      "lang": "TypeScript",
+      "topics": [
+        "biome",
+        "cursor",
+        "formatter",
+        "linter",
+        "mcp",
+        "vscode",
+        "windsurf",
+        "zed"
+      ],
+      "url": "https://github.com/haydenbleasel/ultracite",
+      "homepage": "https://www.ultracite.ai/",
+      "fork": false,
+      "created_at": "2022-03-18T05:42:54Z",
+      "updated_at": "2026-04-12T04:39:50Z",
+      "pushed_at": "2026-04-11T23:23:05Z",
+      "owner": {
+        "login": "haydenbleasel",
+        "type": "User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/4142719?v=4"
+      },
+      "license": "MIT",
+      "forks_count": 103,
+      "open_issues_count": 3,
+      "watchers": 2806
     },
     {
       "id": 132575997,
@@ -75,8 +82,8 @@
       "homepage": "",
       "fork": false,
       "created_at": "2018-05-08T08:09:16Z",
-      "updated_at": "2026-04-11T12:33:10Z",
-      "pushed_at": "2026-04-11T12:33:06Z",
+      "updated_at": "2026-04-12T01:03:57Z",
+      "pushed_at": "2026-04-12T01:03:51Z",
       "owner": {
         "login": "Calinou",
         "type": "User",
@@ -86,11 +93,68 @@
       "forks_count": 198,
       "open_issues_count": 122,
       "watchers": 344
+    },
+    {
+      "id": 1203495713,
+      "name": "Neighbor-Z/SwiftMTP",
+      "full_name": "Neighbor-Z/SwiftMTP",
+      "desc": "A modern MTP device management tool for macOS.",
+      "stars": 117,
+      "lang": "Swift",
+      "topics": [
+        "android",
+        "file-transfer",
+        "macos",
+        "mtp",
+        "swift",
+        "tools",
+        "utility"
+      ],
+      "url": "https://github.com/Neighbor-Z/SwiftMTP",
+      "homepage": "https://neighbor-z.github.io/swiftmtp-website",
+      "fork": false,
+      "created_at": "2026-04-07T05:00:29Z",
+      "updated_at": "2026-04-12T04:37:27Z",
+      "pushed_at": "2026-04-11T14:19:20Z",
+      "owner": {
+        "login": "Neighbor-Z",
+        "type": "User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/243284857?v=4"
+      },
+      "license": "GPL-2.0",
+      "forks_count": 1,
+      "open_issues_count": 1,
+      "watchers": 117
+    },
+    {
+      "id": 841723911,
+      "name": "seriotonctf/Red-Team-Notes",
+      "full_name": "seriotonctf/Red-Team-Notes",
+      "desc": "",
+      "stars": 53,
+      "lang": "",
+      "topics": [],
+      "url": "https://github.com/seriotonctf/Red-Team-Notes",
+      "homepage": "",
+      "fork": false,
+      "created_at": "2024-08-12T23:28:51Z",
+      "updated_at": "2026-04-12T04:34:50Z",
+      "pushed_at": "2026-04-10T18:36:16Z",
+      "owner": {
+        "login": "seriotonctf",
+        "type": "User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/55143192?v=4"
+      },
+      "license": "",
+      "forks_count": 5,
+      "open_issues_count": 0,
+      "watchers": 53
     }
   ],
+  "removed": [],
   "summary": {
-    "added_count": 1,
-    "removed_count": 2,
-    "net_change": -1
+    "added_count": 5,
+    "removed_count": 0,
+    "net_change": 5
   }
 }
