@@ -67,6 +67,6 @@ jobs:
           file_pattern: |
             data/*.json
             README.md
-            search.html
+            index.html
           skip_dirty_check: false
           commit_options: '--no-verify'

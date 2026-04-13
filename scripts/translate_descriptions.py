@@ -178,7 +178,7 @@ def main():
         json.dump(meta, f, indent=2)
     
     print("\n✅ desc-cn.json saved!")
-    print("   Next: upload to GitHub and update search.html to use desc_cn")
+    print("   Next: upload to GitHub and update index.html to use desc_cn")
 
 if __name__ == '__main__':
     main()
