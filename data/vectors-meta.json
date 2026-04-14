@@ -1,8 +1,8 @@
 {
-  "model": "all-MiniLM-L6-v2",
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
   "dimension": 384,
-  "count": 4816,
-  "generated_at": "2026-04-11T15:16:27.908423Z",
+  "count": 4821,
+  "generated_at": "2026-04-14T10:00:21Z",
   "indexed_fields": [
     "name",
     "desc_cn",
@@ -10,5 +10,7 @@
     "lang_category",
     "topics",
     "auto_tags"
-  ]
+  ],
+  "binary": true,
+  "hnsw_available": true
 }

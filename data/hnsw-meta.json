@@ -1,0 +1,21 @@
+{
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "dimension": 384,
+  "count": 4821,
+  "generated_at": "2026-04-14T10:00:21Z",
+  "indexed_fields": [
+    "name",
+    "desc_cn",
+    "desc",
+    "lang_category",
+    "topics",
+    "auto_tags"
+  ],
+  "hnsw": {
+    "M": 16,
+    "ef_construction": 200,
+    "ef_search": 128,
+    "space": "cosine",
+    "normalized": true
+  }
+}

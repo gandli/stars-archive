@@ -9,7 +9,7 @@
     :root {
       --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --border: #30363d;
       --text: #e6edf3; --text2: #8b949e; --accent: #58a6ff; --star: #f0883e;
-      --green: #3fb950; --purple: #a371f7; --pink: #db61a2;
+      --green: #3fb950; --purple: #a371f7; --pink: #db61a2; --yellow: #d29922;
     }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
     .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
@@ -18,7 +18,7 @@
     h1 a { color: var(--star); text-decoration: none; }
     .stats { color: var(--text2); font-size: 0.85rem; }
 
-    /* Search */
+    /* Search box */
     .search-box { position: relative; margin-bottom: 0.75rem; }
     .search-box input {
       width: 100%; padding: 0.85rem 1rem 0.85rem 2.8rem;
@@ -28,7 +28,10 @@
     }
     .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,166,255,0.15); }
     .search-box::before { content: "🔍"; position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 1.1rem; }
+    .search-box .spinner { position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 0.9rem; animation: spin 1s linear infinite; display: none; }
+    .search-box.searching .spinner { display: block; }
 
+    /* Mode buttons */
     .search-modes { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap; }
     .mode-btn {
       padding: 0.25rem 0.65rem; background: var(--bg2); border: 1px solid var(--border);
@@ -36,7 +39,19 @@
     }
     .mode-btn:hover { border-color: var(--accent); color: var(--accent); }
     .mode-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .mode-btn .beta { background: var(--purple); color: #fff; padding: 0 0.35rem; border-radius: 8px; font-size: 0.65rem; margin-left: 0.25rem; }
+    .mode-btn .badge { background: var(--green); color: #fff; padding: 0 0.35rem; border-radius: 8px; font-size: 0.65rem; margin-left: 0.25rem; }
+    .mode-btn .badge.hnsw { background: var(--green); }
+    .mode-btn .badge.naive { background: var(--yellow); }
+    .mode-btn .badge.beta { background: var(--purple); }
+
+    /* Status bar */
+    .status-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; }
+    .status-chip {
+      padding: 0.18rem 0.55rem; background: var(--bg3); border-radius: 12px;
+      font-size: 0.73rem; color: var(--text2);
+    }
+    .status-chip.fast { color: var(--green); background: rgba(63,185,80,0.12); }
+    .status-chip.model { color: var(--accent); background: rgba(88,166,255,0.12); }
 
     /* Filters */
     .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; align-items: center; }
@@ -61,7 +76,7 @@
     .tag-chip:hover { border-color: var(--purple); }
     .tag-chip.active { background: var(--purple); color: #fff; }
 
-    /* Progress bar */
+    /* Loading screen */
     .loading-screen {
       position: fixed; inset: 0; background: var(--bg); z-index: 999;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -90,7 +105,8 @@
 
     .repo-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; transition: border-color 0.2s; }
     .repo-card:hover { border-color: var(--text2); }
-    .repo-card.semantic { border-left: 3px solid var(--purple); }
+    .repo-card.semantic { border-left: 3px solid var(--green); }
+    .repo-card.hybrid { border-left: 3px solid var(--purple); }
 
     .repo-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; flex-wrap: wrap; }
     .repo-name { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.93rem; }
@@ -98,7 +114,14 @@
     .repo-stars { color: var(--star); font-size: 0.78rem; white-space: nowrap; }
     .repo-lang-badge { background: var(--bg3); color: var(--text2); padding: 0.08rem 0.4rem; border-radius: 10px; font-size: 0.7rem; }
     .repo-cat-badge { background: rgba(163,113,247,0.15); color: var(--purple); padding: 0.08rem 0.4rem; border-radius: 10px; font-size: 0.7rem; }
-    .semantic-badge { background: var(--purple); color: #fff; padding: 0.08rem 0.4rem; border-radius: 10px; font-size: 0.68rem; margin-left: auto; }
+    .semantic-badge { background: var(--green); color: #fff; padding: 0.08rem 0.4rem; border-radius: 10px; font-size: 0.68rem; margin-left: auto; }
+    .rank-badge { color: var(--text2); font-size: 0.72rem; margin-left: auto; opacity: 0.6; }
+    .similar-btn {
+      background: var(--purple); color: #fff; border: none; border-radius: 10px;
+      font-size: 0.7rem; padding: 0.15rem 0.5rem; cursor: pointer; margin-left: 0.4rem;
+      opacity: 0.8; transition: opacity 0.2s;
+    }
+    .similar-btn:hover { opacity: 1; }
 
     .repo-desc { color: var(--text2); font-size: 0.83rem; margin-bottom: 0.35rem; }
     .repo-desc-en { color: var(--text2); font-size: 0.78rem; font-style: italic; opacity: 0.6; }
@@ -126,7 +149,15 @@
     footer a { color: var(--accent); }
     mark { background: rgba(255,200,0,0.25); color: inherit; padding: 0 2px; border-radius: 2px; }
 
-    .vector-status { font-size: 0.75rem; color: var(--purple); margin-left: 0.5rem; }
+    /* Performance indicator */
+    .perf-info { font-size: 0.7rem; color: var(--text2); opacity: 0.7; }
+
+    /* Search tips */
+    .search-tip {
+      font-size: 0.78rem; color: var(--text2); margin-bottom: 0.75rem;
+      padding: 0.5rem 0.75rem; background: var(--bg2); border-radius: 6px; border-left: 3px solid var(--accent);
+    }
+    .search-tip code { color: var(--accent); background: var(--bg3); padding: 0.1rem 0.3rem; border-radius: 4px; font-size: 0.75rem; }
   </style>
 </head>
 <body>
@@ -145,14 +176,28 @@
       <p class="stats" id="stats">加载中...</p>
     </header>
 
-    <div class="search-box">
+    <div class="search-box" id="searchBox">
       <input type="text" id="searchInput" placeholder="搜索项目名称、描述、话题... 或用自然语言描述你想要的工具" autofocus>
+      <span class="spinner">⏳</span>
     </div>
 
     <div class="search-modes">
-      <button class="mode-btn active" data-mode="hybrid">🔤 关键词</button>
-      <button class="mode-btn" data-mode="semantic">🧠 语义搜索 <span class="beta">BETA</span></button>
-      <span class="vector-status" id="vectorStatus"></span>
+      <button class="mode-btn active" data-mode="keyword">🔤 关键词</button>
+      <button class="mode-btn" data-mode="hybrid">✨ 混合</button>
+      <button class="mode-btn" data-mode="semantic" id="semanticBtn">
+        🧠 语义
+        <span class="badge beta" id="indexBadge">⚡</span>
+      </button>
+    </div>
+
+    <div class="status-bar" id="statusBar">
+      <span class="status-chip" id="indexStatus">🔄 初始化...</span>
+      <span class="status-chip model" id="modelStatus"></span>
+    </div>
+
+    <div class="search-tip" id="searchTip">
+      💡 <strong>关键词模式</strong>：BM25 加权搜索 · 中文 1-gram + 2-gram 分词 ·
+      <code>#machine-learning</code> 标签 · <code>lang:python</code> 语言过滤
     </div>
 
     <div class="filters">
@@ -172,81 +217,19 @@
     <div id="pagination" class="pagination"></div>
 
     <footer>
-      <p>数据来源: <a href="https://github.com/gandli/stars-archive">gandli/stars-archive</a> · 由 <a href="https://github.com/gandli">@gandli</a> 维护 · <a href="https://gandli.github.io/stars-archive/search.html">搜索页面</a></p>
+      <p>数据来源: <a href="https://github.com/gandli/stars-archive">gandli/stars-archive</a> · 由 <a href="https://github.com/gandli">@gandli</a> 维护 · 搜索由 <a href="https://github.com/gandli/stars-archive#search-optimization">HNSW + Web Worker</a> 加速</p>
     </footer>
   </div>
 
   <script type="module">
-    // ========== IndexedDB Utilities ==========
-    const DB_NAME = 'stars-search';
-    const DB_VERSION = 2;
-    const STORE_VECTORS = 'vectors';
-    const STORE_META = 'meta';
-
-    function openDB() {
-      return new Promise((resolve, reject) => {
-        const req = indexedDB.open(DB_NAME, DB_VERSION);
-        req.onerror = () => reject(req.error);
-        req.onsuccess = () => resolve(req.result);
-        req.onupgradeneeded = (e) => {
-          const db = e.target.result;
-          if (!db.objectStoreNames.contains(STORE_VECTORS)) {
-            db.createObjectStore(STORE_VECTORS, { keyPath: 'id' });
-          }
-          if (!db.objectStoreNames.contains(STORE_META)) {
-            db.createObjectStore(STORE_META, { keyPath: 'key' });
-          }
-        };
-      });
-    }
-
-    async function idbGet(store, key) {
-      const db = await openDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(store, 'readonly');
-        const req = tx.objectStore(store).get(key);
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
-      });
-    }
-
-    async function idbPut(store, value) {
-      const db = await openDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(store, 'readwrite');
-        const req = tx.objectStore(store).put(value);
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
-      });
-    }
-
-    async function idbGetAll(store) {
-      const db = await openDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(store, 'readonly');
-        const req = tx.objectStore(store).getAll();
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
-      });
-    }
-
-    async function idbClear(store) {
-      const db = await openDB();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(store, 'readwrite');
-        const req = tx.objectStore(store).clear();
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-      });
-    }
-
-    // ========== State ==========
+    // ================================================================
+    // State
+    // ================================================================
     let allRepos = [];
     let repoIdToIdx = {};
-    let vectors = {};           // id -> float32 array
-    let descCnMap = {};         // id -> Chinese description
-    let embeddings = null;       // pipeline
-    let searchMode = 'hybrid';  // 'hybrid' | 'semantic'
+    let descCnMap = {};
+    let searchWorker = null;
+    let searchMode = 'hybrid';   // 'keyword' | 'semantic' | 'hybrid'
     let filteredRepos = [];
     let currentPage = 1;
     const PER_PAGE = 25;
@@ -255,10 +238,21 @@
     let currentCat = '';
     let currentTag = '';
     let searchQuery = '';
-    let vectorsLoaded = false;
-    let initDone = false;
+    let workerReady = false;
+    let searchDebounce = null;
 
-    // ========== Loading Screen ==========
+    // Worker result caches (populated by worker messages)
+    let _semanticCache = null;   // { repoIds, distances, queryMs } — shared across modes
+    let _keywordCache = null;     // { repoIds, scores, queryMs } — for keyword mode
+    let _hybridCache = null;     // { repoIds, distances, queryMs } — for hybrid mode
+
+    // Pending search resolver — set by performSearch, resolved by worker handler
+    let _searchResolve = null;
+    let _pendingMode = null;
+
+    // ================================================================
+    // Loading Screen
+    // ================================================================
     function setProgress(pct, label) {
       const bar = document.getElementById('progressBar');
       const lbl = document.getElementById('progressLabel');
@@ -276,235 +270,290 @@
       }
     }
 
-    // ========== Init ==========
-    async function init() {
+    function updateStatus(text, type = '') {
+      const el = document.getElementById('indexStatus');
+      if (el) {
+        el.textContent = text;
+        el.className = 'status-chip' + (type ? ` fast` : '');
+      }
+    }
+
+    // ================================================================
+    // Web Worker Setup
+    // ================================================================
+    async function initWorker() {
+      setProgress(30, '启动搜索线程...');
+
       try {
-        setProgress(5, '加载项目数据...');
-        let dataUrl = 'data/stars-enriched.json';
-        let resp = await fetch(dataUrl);
-        if (!resp.ok) throw new Error('Failed to load data');
-        allRepos = await resp.json();
-        allRepos.forEach((r, i) => { repoIdToIdx[String(r.id)] = i; });
-        setProgress(20, '加载中文翻译...');
+        // Use direct URL (not blob) so worker can resolve relative data paths
+        searchWorker = new Worker(new URL('./search_worker.js', import.meta.url), { type: 'module' });
 
-        // Load Chinese descriptions
-        try {
-          const cnResp = await fetch('data/desc-cn.json');
-          if (cnResp.ok) {
-            const cnData = await cnResp.json();
-            descCnMap = cnData;
-            const cnCount = Object.keys(descCnMap).length;
-            const badge = document.getElementById('vectorStatus');
-            if (badge) badge.textContent = `🌐 ${cnCount} 已翻译中文`;
+        // Pass the base URL so worker can resolve data file paths
+        searchWorker.postMessage({ type: 'setBaseUrl', baseUrl: new URL('.', import.meta.url).href });
+
+        searchWorker.onmessage = (e) => {
+          const { type, ...data } = e.data;
+
+          switch (type) {
+            case 'status':
+              setProgress(60, data.text);
+              break;
+
+            // ── Worker ready ──────────────────────────────────────
+            case 'ready': {
+              workerReady = true;
+              setProgress(75, `搜索就绪 (${data.count || 0} 项目)`);
+              if (data.hasKnn) {
+                updateStatus(`📊 ${data.count} repos | K=${data.knnK} | O(1)相似`, 'fast');
+              } else {
+                updateStatus(`✅ ${data.count} 项目已加载 | KNN就绪`, 'fast');
+              }
+              // Model badge: waiting for first semantic use
+              const badge = document.getElementById('indexBadge');
+              if (badge) {
+                badge.textContent = '⚡';
+                badge.className = 'badge hnsw';
+              }
+              document.getElementById('modelStatus').textContent = '🧠 语义模型待加载';
+              document.getElementById('semanticBtn').disabled = false;
+              break;
+            }
+
+            // ── Model loading progress (from transformers.js) ─────
+            case 'modelProgress': {
+              const { file, pct } = data;
+              document.getElementById('modelStatus').textContent =
+                `⬇️ 模型加载 ${pct}% · ${file}`;
+              const bar = document.getElementById('progressBar');
+              if (bar) bar.style.width = pct + '%';
+              break;
+            }
+
+            // ── Model ready ───────────────────────────────────────
+            case 'modelReady': {
+              const { model, dim } = data;
+              document.getElementById('modelStatus').textContent =
+                `🧠 ${model} (${dim}-dim)`;
+              document.getElementById('modelStatus').style.color = 'var(--green)';
+              const badge = document.getElementById('indexBadge');
+              if (badge) {
+                badge.textContent = '就绪';
+                badge.className = 'badge hnsw';
+              }
+              break;
+            }
+
+            // ── Model load error ──────────────────────────────────
+            case 'modelError': {
+              console.error('[Model]', data.error);
+              document.getElementById('modelStatus').textContent = `⚠️ ${data.error}`;
+              const badge = document.getElementById('indexBadge');
+              if (badge) {
+                badge.textContent = '失败';
+                badge.className = 'badge naive';
+              }
+              break;
+            }
+
+            // ── BM25 ready ─────────────────────────────────────────
+            case 'status': {
+              // Extra: BM25 index built
+              if (data.text && data.text.includes('关键词索引')) {
+                document.getElementById('modelStatus').textContent = `🔤 BM25就绪 | 🧠 语义待加载`;
+              }
+              break;
+            }
+
+            // ── Semantic search results ───────────────────────────
+            case 'semanticResults': {
+              _semanticCache = data.error ? null : data;
+              const ms = data.queryMs ? `${data.queryMs.toFixed(0)}ms` : '';
+              document.getElementById('modelStatus').textContent =
+                data.error ? `⚠️ 语义失败` : `🔮 语义搜索 ${ms}`;
+              document.getElementById('searchBox').classList.remove('searching');
+              if (_searchResolve && _pendingMode === 'semantic') {
+                _searchResolve(); _searchResolve = null; _pendingMode = null;
+              }
+              break;
+            }
+
+            // ── Keyword (BM25) search results ─────────────────────
+            case 'keywordResults': {
+              _keywordCache = data.error ? null : data;
+              const ms = data.queryMs ? `${data.queryMs.toFixed(0)}ms` : '';
+              document.getElementById('modelStatus').textContent =
+                data.error ? `⚠️ 关键词失败` : `🔤 BM25搜索 ${ms}`;
+              document.getElementById('searchBox').classList.remove('searching');
+              if (_searchResolve && _pendingMode === 'keyword') {
+                _searchResolve(); _searchResolve = null; _pendingMode = null;
+              }
+              break;
+            }
+
+            // ── Hybrid search results ─────────────────────────────
+            case 'hybridResults': {
+              _hybridCache = data.error ? null : data;
+              const ms = data.queryMs ? `${data.queryMs.toFixed(0)}ms` : '';
+              document.getElementById('modelStatus').textContent =
+                data.error ? `⚠️ 混合搜索失败` : `✨ 混合搜索 ${ms}`;
+              document.getElementById('searchBox').classList.remove('searching');
+              if (_searchResolve && _pendingMode === 'hybrid') {
+                _searchResolve(); _searchResolve = null; _pendingMode = null;
+              }
+              break;
+            }
+
+            // ── Similar repos ──────────────────────────────────────
+            case 'similarResults': {
+              const { repoId, repoIds, indices, distances, queryMs, error } = data;
+              if (error) { console.warn('[Similar]', error); return; }
+              const idxArr = indices instanceof ArrayBuffer
+                ? Array.from(new Uint32Array(indices))
+                : Array.from(indices || []);
+              const distArr = distances instanceof ArrayBuffer
+                ? Array.from(new Float32Array(distances))
+                : Array.from(distances || []);
+              showSimilarReposOverlay(repoId, repoIds, distArr, queryMs);
+              break;
+            }
+
+            // ── Generic error ─────────────────────────────────────
+            case 'error':
+              console.error('[Worker]', data.error);
+              updateStatus('⚠️ ' + data.error);
+              document.getElementById('searchBox').classList.remove('searching');
+              if (_searchResolve) { _searchResolve(); _searchResolve = null; _pendingMode = null; }
+              break;
           }
-        } catch {}
+        };
 
-        setProgress(30, '检查向量缓存...');
-        renderFilterOptions();
-        renderTagCloud();
-        updateStats();
-        bindEvents();
+        searchWorker.onerror = (err) => {
+          console.error('[Worker fatal error]', err);
+          workerReady = false;
+          updateStatus('⚠️ Worker 初始化失败');
+          document.getElementById('semanticBtn').disabled = true;
+        };
 
-        // Load vectors from IndexedDB or network
-        try {
-          await loadVectors();
-        } catch (err) {
-          console.error('loadVectors error:', err);
-          vectorsLoaded = false; // allow keyword search to continue
-          document.getElementById('vectorStatus').textContent = '⚠️ 向量加载失败，仅关键词搜索可用';
-        }
+        // Initialize worker
+        searchWorker.postMessage({ type: 'init' });
 
-        initDone = true;
-        setProgress(100, '加载完成！');
-        setTimeout(hideLoadingScreen, 300);
-
-        // Initial render after all data loaded
-        filterAndRender().catch(err => {
-          console.error('filterAndRender error:', err);
-          document.getElementById('results').innerHTML = `<div class="empty"><p>❌ 渲染失败: ${err.message}</p></div>`;
-        });
       } catch (err) {
-        console.error('Init error:', err);
-        document.getElementById('loadingScreen').innerHTML =
-          `<div class="loading-title">❌ 初始化失败</div><div class="loading-sub">${err.message}</div>`;
+        console.error('[Worker init error]', err);
+        workerReady = false;
+        updateStatus('⚠️ 无法启动搜索线程');
+        document.getElementById('semanticBtn').disabled = true;
       }
     }
 
-    async function loadVectors() {
-      setProgress(35, '检查 IndexedDB 缓存...');
-      const metaKey = 'vectors-meta';
+    // ================================================================
+    // Search — unified, delegates to worker by mode
+    // ================================================================
 
-      // Check cache validity
-      let cachedMeta = null;
-      try {
-        cachedMeta = await idbGet(STORE_META, metaKey);
-      } catch {}
+    /**
+     * Send a search query to the worker and wait for results.
+     * Dispatches to 'semantic', 'keyword', or 'hybrid' message type.
+     * Returns a promise that resolves when results arrive (or on error).
+     */
+    function performSearch(query) {
+      if (!workerReady || !searchWorker || !query.trim()) return Promise.resolve();
 
-      const networkMetaResp = await fetch('data/vectors-meta.json');
-      const networkMeta = networkMetaResp.ok ? await networkMetaResp.json() : null;
+      document.getElementById('searchBox').classList.add('searching');
 
-      const cacheValid = cachedMeta && networkMeta &&
-        cachedMeta.count === networkMeta.count &&
-        cachedMeta.generated_at === networkMeta.generated_at;
+      return new Promise((resolve) => {
+        _searchResolve = resolve;
+        _pendingMode = searchMode;
+        searchWorker.postMessage({ type: searchMode, query, k: 50 });
 
-      if (cacheValid) {
-        // Load from IndexedDB
-        setProgress(45, '从本地缓存加载向量...');
-        const cached = await idbGetAll(STORE_VECTORS);
-        for (const item of cached) {
-          vectors[item.id] = new Float32Array(item.vec);
-        }
-        setProgress(65, `✅ 已从缓存加载 ${cached.length} 个向量`);
-
-        // Load embeddings model
-        setProgress(70, '加载语义模型 (~80MB, 已缓存)...');
-        await loadEmbeddings();
-      } else {
-        // Fetch from network
-        setProgress(40, '下载向量文件 (~7MB)...');
-        const vResp = await fetch('data/vectors.json');
-        if (!vResp.ok) throw new Error('vectors.json not found');
-        const vectorsData = await vResp.json();
-        const total = Object.keys(vectorsData).length;
-
-        setProgress(55, `保存向量到 IndexedDB...`);
-        // Clear old cache and store fresh
-        await idbClear(STORE_VECTORS);
-        const batch = [];
-        let count = 0;
-        for (const [id, arr] of Object.entries(vectorsData)) {
-          vectors[id] = new Float32Array(arr);
-          batch.push({ id, vec: arr });
-          if (batch.length >= 200) {
-            for (const item of batch) await idbPut(STORE_VECTORS, item);
-            batch.length = 0;
+        // Safety timeout: 60s for model download, 5s otherwise
+        const timeout = (searchMode === 'semantic' && !_semanticCache) ? 60000 : 5000;
+        setTimeout(() => {
+          if (_searchResolve) {
+            console.warn(`[Search] Timeout waiting for ${searchMode} results`);
+            _searchResolve = null; _pendingMode = null;
+            document.getElementById('searchBox').classList.remove('searching');
+            resolve();
           }
-          count++;
-          if (count % 500 === 0) {
-            setProgress(55 + 10 * count / total, `保存向量 ${count}/${total}...`);
-          }
-        }
-        for (const item of batch) await idbPut(STORE_VECTORS, item);
-
-        // Save meta
-        if (networkMeta) {
-          await idbPut(STORE_META, { key: metaKey, ...networkMeta });
-        }
-
-        setProgress(70, '加载语义模型...');
-        await loadEmbeddings();
-      }
-
-      vectorsLoaded = true;
-      setProgress(95, '就绪！');
-    }
-
-    async function loadEmbeddings() {
-      const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1');
-      embeddings = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
-        quantized: true,
+        }, timeout);
       });
     }
 
-    function updateStats() {
-      const total = allRepos.length.toLocaleString();
-      document.getElementById('stats').innerHTML = `共 <strong>${total}</strong> 个星标`;
-    }
-
-    function hasChinese(text) { return /[\u4e00-\u9fff]/.test(text || ''); }
-
-    // ========== Cosine Similarity ==========
-    function cosineSimilarity(a, b) {
-      let dot = 0, normA = 0, normB = 0;
-      for (let i = 0; i < a.length; i++) {
-        dot += a[i] * b[i];
-        normA += a[i] * a[i];
-        normB += b[i] * b[i];
-      }
-      return dot / (Math.sqrt(normA) * Math.sqrt(normB) + 1e-10);
-    }
-
-    async function semanticSearch(query, topK = 10) {
-      if (!vectorsLoaded || !embeddings) return [];
-
-      const output = await embeddings(query, { pooling: 'mean', normalize: true });
-      const queryVec = new Float32Array(output.data);
-
-      const results = [];
-      for (const [id, vec] of Object.entries(vectors)) {
-        const idx = repoIdToIdx[id];
-        if (idx === undefined) continue;
-        results.push({ idx, score: cosineSimilarity(queryVec, vec) });
-      }
-
-      results.sort((a, b) => b.score - a.score);
-      return results.slice(0, topK);
-    }
-
-    // ========== Hybrid Search ==========
+    // ================================================================
+    // Filter & Render
+    // ================================================================
     async function filterAndRender() {
       const q = searchQuery.toLowerCase().trim();
 
-      if (searchMode === 'semantic' && q && vectorsLoaded) {
-        const semanticResults = await semanticSearch(q, 20);
-        const semanticMap = new Map();
-        for (const r of semanticResults) semanticMap.set(r.idx, r);
+      if (q && workerReady) {
+        // ── Worker-backed search (BM25 / semantic / hybrid) ─────
+        await performSearch(q);
 
-        const keywordFiltered = allRepos.filter(repo => {
-          if (currentLang && repo.lang !== currentLang) return false;
-          if (currentCat && repo.lang_category !== currentCat) return false;
-          if (currentTag) {
-            const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
-            if (!tags.includes(currentTag.toLowerCase())) return false;
+        // Build filtered repos from worker caches
+        const mode = searchMode;
+        let cache = null;
+
+        if (mode === 'semantic') cache = _semanticCache;
+        else if (mode === 'keyword') cache = _keywordCache;
+        else if (mode === 'hybrid') cache = _hybridCache;
+
+        filteredRepos = [];
+
+        if (cache && cache.repoIds) {
+          for (let i = 0; i < cache.repoIds.length; i++) {
+            const repoId = cache.repoIds[i];
+            const repo = allRepos.find(r => String(r.id) === repoId);
+            if (!repo) continue;
+
+            // Apply filters
+            if (currentLang && repo.lang !== currentLang) continue;
+            if (currentCat && repo.lang_category !== currentCat) continue;
+            if (currentTag) {
+              const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
+              if (!tags.includes(currentTag.toLowerCase())) continue;
+            }
+
+            const dist = cache.distances ? cache.distances[i] : 0;
+            const score = cache.scores ? cache.scores[i] : 0;
+            filteredRepos.push({
+              ...repo,
+              _semantic: mode !== 'keyword',
+              _semScore: 1 - dist,
+              _kwScore: score,
+            });
           }
-          if (q) {
-            const searchable = [
+
+          // Sort
+          if (mode === 'semantic' || mode === 'hybrid') {
+            filteredRepos.sort((a, b) => (b._semScore || 0) - (a._semScore || 0));
+          } else {
+            filteredRepos.sort((a, b) => (b._kwScore || 0) - (a._kwScore || 0));
+          }
+        } else {
+          // Worker returned no results — fall back to simple text match
+          filteredRepos = allRepos.filter(repo => {
+            const text = [
               repo.name || '', repo.desc || '', repo.desc_cn || '',
-              (repo.topics || []).join(' '), (repo.auto_tags || []).join(' '),
-              repo.lang || '', repo.lang_category || ''
+              (repo.topics || []).join(' '), (repo.auto_tags || []).join(' ')
             ].join(' ').toLowerCase();
-            if (!searchable.includes(q)) return false;
-          }
-          return true;
-        });
-
-        const seen = new Set();
-        const merged = [];
-
-        for (const r of semanticResults.slice(0, 10)) {
-          const repo = allRepos[r.idx];
-          if (currentLang && repo.lang !== currentLang) continue;
-          if (currentCat && repo.lang_category !== currentCat) continue;
-          if (currentTag) {
-            const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
-            if (!tags.includes(currentTag.toLowerCase())) continue;
-          }
-          merged.push({ ...repo, _score: r.score, _semantic: true });
-          seen.add(r.idx);
+            if (!text.includes(q)) return false;
+            if (currentLang && repo.lang !== currentLang) return false;
+            if (currentCat && repo.lang_category !== currentCat) return false;
+            if (currentTag) {
+              const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
+              if (!tags.includes(currentTag.toLowerCase())) return false;
+            }
+            return true;
+          });
+          filteredRepos.sort((a, b) => (b.stars||0) - (a.stars||0));
         }
-
-        for (const repo of keywordFiltered) {
-          if (seen.has(allRepos.indexOf(repo))) continue;
-          merged.push({ ...repo, _score: 0, _semantic: false });
-        }
-
-        filteredRepos = merged;
 
       } else {
+        // ── No query — show all repos sorted by stars ────────────
         filteredRepos = allRepos.filter(repo => {
           if (currentLang && repo.lang !== currentLang) return false;
           if (currentCat && repo.lang_category !== currentCat) return false;
           if (currentTag) {
             const tags = [...(repo.topics || []), ...(repo.auto_tags || [])].map(t => t.toLowerCase());
             if (!tags.includes(currentTag.toLowerCase())) return false;
-          }
-          if (q) {
-            const searchable = [
-              repo.name || '', repo.desc || '', repo.desc_cn || '',
-              (repo.topics || []).join(' '), (repo.auto_tags || []).join(' '),
-              repo.lang || '', repo.lang_category || ''
-            ].join(' ').toLowerCase();
-            if (!searchable.includes(q)) return false;
           }
           return true;
         });
@@ -518,7 +567,9 @@
       renderResults();
     }
 
-    // ========== Rendering ==========
+    // ================================================================
+    // Rendering
+    // ================================================================
     function renderResults() {
       const container = document.getElementById('results');
       const totalPages = Math.ceil(filteredRepos.length / PER_PAGE);
@@ -533,22 +584,32 @@
         return;
       }
 
+      const modeLabels = {
+        semantic: '🔮 语义搜索',
+        hybrid: '🔤 关键词',
+        ai: '✨ AI 搜索',
+      };
+
       document.getElementById('resultsCount').textContent =
-        searchMode === 'semantic'
-          ? `🔮 语义搜索: ${filteredRepos.length.toLocaleString()} 个相关结果`
-          : `显示 ${start+1}-${Math.min(end, filteredRepos.length)} / 共 ${filteredRepos.length.toLocaleString()} 个`;
+        `${modeLabels[searchMode] || ''}: ${filteredRepos.length.toLocaleString()} 个结果`;
 
       let html = '';
-      const semanticPage = pageRepos.filter(r => r._semantic);
-      const keywordPage = pageRepos.filter(r => !r._semantic);
 
-      if (searchMode === 'semantic' && semanticPage.length > 0) {
-        html += `<div class="section-label">🔮 语义相关项目</div>`;
-        html += semanticPage.map(repo => renderRepoCard(repo, true)).join('');
+      // Group by semantic relevance
+      if ((searchMode === 'semantic' || searchMode === 'hybrid' || searchMode === 'ai') && filteredRepos.some(r => r._semantic)) {
+        const semanticPage = pageRepos.filter(r => r._semantic);
+        if (semanticPage.length > 0) {
+          html += `<div class="section-label">🔮 语义最相关</div>`;
+          html += semanticPage.map((repo, i) => renderRepoCard(repo, true, start + pageRepos.indexOf(repo))).join('');
+        }
       }
-      if (keywordPage.length > 0) {
-        if (searchMode === 'semantic') html += `<div class="section-label" style="margin-top:0.75rem">📋 关键词匹配</div>`;
-        html += keywordPage.map(repo => renderRepoCard(repo, false)).join('');
+
+      const nonSemanticPage = pageRepos.filter(r => !r._semantic);
+      if (nonSemanticPage.length > 0) {
+        if (searchMode !== 'keyword') {
+          html += `<div class="section-label">📋 关键词匹配</div>`;
+        }
+        html += nonSemanticPage.map((repo, i) => renderRepoCard(repo, false, start + pageRepos.indexOf(repo))).join('');
       }
 
       container.innerHTML = html;
@@ -559,7 +620,7 @@
       return repo.desc_cn || descCnMap[String(repo.id)] || '';
     }
 
-    function renderRepoCard(repo, isSemantic) {
+    function renderRepoCard(repo, isSemantic, rank) {
       const stars = (repo.stars||0).toLocaleString();
       const desc = repo.desc || '';
       const descCn = getDescCn(repo);
@@ -569,6 +630,7 @@
       const autoTags = (repo.auto_tags || []).filter(t => !topics.includes(t)).slice(0, 4);
       const allTags = [...topics, ...autoTags];
       const isChinese = hasChinese(descCn || desc);
+      const showScore = isSemantic && repo._semScore !== undefined;
 
       return `
         <div class="repo-card${isSemantic ? ' semantic' : ''}">
@@ -577,7 +639,9 @@
             <span class="repo-stars">⭐ ${stars}</span>
             ${lang ? `<span class="repo-lang-badge">${lang}</span>` : ''}
             ${cat ? `<span class="repo-cat-badge">${cat}</span>` : ''}
-            ${isSemantic ? `<span class="semantic-badge">🔮 ${(repo._score * 100).toFixed(0)}%</span>` : ''}
+            ${showScore ? `<span class="semantic-badge">🔮 ${(repo._semScore * 100).toFixed(0)}%</span>` : ''}
+            ${rank !== undefined ? `<span class="rank-badge">#${rank + 1}</span>` : ''}
+            <button class="similar-btn" onclick="findSimilarRepos('${repo.id}')" title="查找相似项目">🔮 相似</button>
           </div>
           <p class="repo-desc">${isChinese ? highlight(esc(descCn), searchQuery) : highlight(esc(desc), searchQuery)}</p>
           ${descCn && descCn !== desc && isChinese ? `<p class="repo-desc-en">EN: ${highlight(esc(desc), searchQuery)}</p>` : ''}
@@ -614,6 +678,9 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // ================================================================
+    // Filters & Tag Cloud
+    // ================================================================
     function renderFilterOptions() {
       const langs = [...new Set(allRepos.map(r => r.lang).filter(Boolean))].sort();
       const cats = [...new Set(allRepos.map(r => r.lang_category).filter(Boolean))].sort();
@@ -643,40 +710,79 @@
       filterAndRender();
     }
 
+    // ================================================================
+    // Events
+    // ================================================================
     function bindEvents() {
-      let timer;
+      // Search input with debounce
       document.getElementById('searchInput').addEventListener('input', e => {
-        clearTimeout(timer); timer = setTimeout(() => {
-          searchQuery = e.target.value;
+        searchQuery = e.target.value;
+        
+        // Auto-trigger semantic search if worker is ready
+        const debounceMs = (searchMode === 'semantic') ? 300 : 150;
+        
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(async () => {
+          if (workerReady && searchQuery.trim()) {
+            await performSearch(searchQuery);
+          }
           filterAndRender();
           updateURL();
-        }, searchMode === 'semantic' ? 400 : 200);
+        }, 200);
       });
 
+      // Mode buttons
       document.querySelectorAll('[data-mode]').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           searchMode = btn.dataset.mode;
-          filterAndRender();
+
+          // Update search tip
+          const tip = document.getElementById('searchTip');
+          if (searchMode === 'semantic') {
+            tip.innerHTML = `💡 <strong>语义搜索</strong>：用自然语言描述需求，如 <code>帮我找一个 Python 机器学习框架</code> · 首次需下载 ~83MB 模型（缓存后秒开）`;
+          } else if (searchMode === 'hybrid') {
+            tip.innerHTML = `💡 <strong>混合搜索</strong>：融合语义理解 + BM25 关键词匹配，自动排序最相关结果 · <code>推荐首选</code>`;
+          } else if (searchMode === 'keyword') {
+            tip.innerHTML = `💡 <strong>关键词模式</strong>：BM25 加权搜索 · 中文 1-gram + 2-gram 分词 · <code>#machine-learning</code> 标签 · <code>lang:python</code> 语言过滤`;
+          }
+
+          // Trigger search if there's a query
+          if (searchQuery.trim()) {
+            filterAndRender();
+          }
         });
       });
 
+      // Sort buttons
       document.querySelectorAll('[data-sort]').forEach(b => b.addEventListener('click', () => {
         document.querySelectorAll('[data-sort]').forEach(x=>x.classList.remove('active'));
-        b.classList.add('active'); currentSort = b.dataset.sort; filterAndRender();
+        b.classList.add('active');
+        currentSort = b.dataset.sort;
+        filterAndRender();
       }));
 
-      document.getElementById('langFilter').addEventListener('change', e => { currentLang = e.target.value; filterAndRender(); updateURL(); });
-      document.getElementById('catFilter').addEventListener('change', e => { currentCat = e.target.value; filterAndRender(); updateURL(); });
+      // Filter selects
+      document.getElementById('langFilter').addEventListener('change', e => {
+        currentLang = e.target.value;
+        filterAndRender();
+        updateURL();
+      });
+      document.getElementById('catFilter').addEventListener('change', e => {
+        currentCat = e.target.value;
+        filterAndRender();
+        updateURL();
+      });
 
+      // URL params
       const params = new URLSearchParams(location.search);
       if (params.get('q')) { searchQuery = params.get('q'); document.getElementById('searchInput').value = searchQuery; }
       if (params.get('lang')) { currentLang = params.get('lang'); document.getElementById('langFilter').value = currentLang; }
       if (params.get('cat')) { currentCat = params.get('cat'); document.getElementById('catFilter').value = currentCat; }
-      if (params.get('mode') === 'semantic') {
-        searchMode = 'semantic';
-        document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === 'semantic'));
+      if (params.get('mode') && ['semantic', 'hybrid', 'ai'].includes(params.get('mode'))) {
+        searchMode = params.get('mode');
+        document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === searchMode));
       }
     }
 
@@ -685,10 +791,14 @@
       if (searchQuery) p.set('q', searchQuery);
       if (currentLang) p.set('lang', currentLang);
       if (currentCat) p.set('cat', currentCat);
-      if (searchMode === 'semantic') p.set('mode', 'semantic');
+      if (searchMode !== 'keyword') p.set('mode', searchMode);
       history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
     }
 
+    // ================================================================
+    // Utilities
+    // ================================================================
+    function hasChinese(text) { return /[\u4e00-\u9fff]/.test(text || ''); }
     function esc(s) {
       const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
     }
@@ -698,7 +808,180 @@
       catch { return s; }
     }
 
+    // ================================================================
+    // Similar Repos (O(1) lookup via pre-computed k-NN)
+    // ================================================================
+    function findSimilarRepos(repoId) {
+      if (!workerReady || !searchWorker) {
+        alert('搜索索引未就绪，请稍后重试');
+        return;
+      }
+      searchWorker.postMessage({ type: 'similar', repoId, k: 20 });
+    }
+
+    function showSimilarReposOverlay(repoId, repoIds, distances, queryMs) {
+      // Remove existing overlay
+      const existing = document.getElementById('similarOverlay');
+      if (existing) existing.remove();
+
+      const repo = allRepos.find(r => String(r.id) === String(repoId));
+      const repoName = repo ? repo.name : repoId;
+
+      const overlay = document.createElement('div');
+      overlay.id = 'similarOverlay';
+      overlay.style.cssText = `
+        position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000;
+        display: flex; align-items: center; justify-content: center; padding: 1rem;
+      `;
+
+      const panel = document.createElement('div');
+      panel.style.cssText = `
+        background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+        max-width: 680px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 1.25rem;
+      `;
+
+      const header = document.createElement('div');
+      header.style.cssText = `display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;`;
+      header.innerHTML = `
+        <div>
+          <h3 style="color: var(--text); margin: 0 0 0.25rem 0; font-size: 1rem;">
+            🔮 与 <a href="https://github.com/${esc(repoName)}" target="_blank" style="color: var(--accent);">${esc(repoName)}</a> 相似
+          </h3>
+          <div style="color: var(--text2); font-size: 0.78rem;">⚡ O(1)查询 ${queryMs ? queryMs.toFixed(1) : '?'}ms · 基于预计算 k-NN</div>
+        </div>
+        <button onclick="document.getElementById('similarOverlay').remove()" style="
+          background: var(--bg3); border: 1px solid var(--border); border-radius: 6px;
+          color: var(--text); padding: 0.4rem 0.8rem; cursor: pointer; font-size: 0.85rem;
+        ">✕ 关闭</button>
+      `;
+
+      const list = document.createElement('div');
+      list.style.cssText = `display: flex; flex-direction: column; gap: 0.6rem;`;
+
+      if (!repoIds || repoIds.length === 0) {
+        list.innerHTML = '<div style="color: var(--text2); text-align: center; padding: 2rem;">没有找到相似的项目</div>';
+      } else {
+        repoIds.forEach((rid, i) => {
+          const r = allRepos.find(x => String(x.id) === String(rid));
+          if (!r) return;
+          const dist = distances && distances[i] !== undefined ? distances[i] : 0;
+          const sim = Math.round((1 - dist) * 100);
+          const stars = (r.stars || 0).toLocaleString();
+          const desc = r.desc || '';
+          const lang = esc(r.lang || '');
+          const descCn = getDescCn(r);
+
+          const card = document.createElement('div');
+          card.style.cssText = `
+            display: flex; gap: 0.75rem; padding: 0.75rem; background: var(--bg3);
+            border-radius: 8px; border: 1px solid var(--border);
+          `;
+          card.innerHTML = `
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.25rem;">
+                <a href="https://github.com/${esc(r.name)}" target="_blank" style="color: var(--accent); font-weight: 500; font-size: 0.88rem; text-decoration: none;">
+                  ${esc(r.name)}
+                </a>
+                <span style="color: var(--star); font-size: 0.78rem;">⭐ ${stars}</span>
+                ${lang ? `<span style="color: var(--text2); font-size: 0.75rem;">${lang}</span>` : ''}
+                <span style="background: var(--purple); color: #fff; padding: 0 0.35rem; border-radius: 8px; font-size: 0.7rem; margin-left: auto;">
+                  🔮 ${sim}%
+                </span>
+              </div>
+              <p style="color: var(--text2); font-size: 0.8rem; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                ${esc(descCn || desc)}
+              </p>
+            </div>
+          `;
+          list.appendChild(card);
+        });
+      }
+
+      panel.appendChild(header);
+      panel.appendChild(list);
+      overlay.appendChild(panel);
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+      });
+
+      document.body.appendChild(overlay);
+    }
+
+    // ================================================================
+    // Init
+    // ================================================================
+    async function init() {
+      try {
+        setProgress(5, '加载项目数据...');
+        let dataUrl = 'data/stars-enriched.json';
+        let resp = await fetch(dataUrl);
+        if (!resp.ok) throw new Error('Failed to load data');
+        allRepos = await resp.json();
+        allRepos.forEach((r, i) => { repoIdToIdx[String(r.id)] = i; });
+        setProgress(15, '加载中文翻译...');
+
+        // Load Chinese descriptions
+        try {
+          const cnResp = await fetch('data/desc-cn.json');
+          if (cnResp.ok) {
+            const cnData = await cnResp.json();
+            descCnMap = cnData;
+            const cnCount = Object.keys(descCnMap).length;
+            updateStatus(`🌐 ${cnCount} 中文翻译已加载`);
+          }
+        } catch {}
+
+        setProgress(20, '渲染界面...');
+        renderFilterOptions();
+        renderTagCloud();
+        updateStatus(`📦 ${allRepos.length} 项目已加载`);
+
+        // Start Web Worker (non-blocking)
+        initWorker();
+
+        // Load metadata to check for HNSW
+        try {
+          const metaResp = await fetch('data/hnsw-meta.json');
+          if (metaResp.ok) {
+            const meta = await metaResp.json();
+            document.getElementById('modelStatus').textContent =
+              `📐 HNSW ${meta.M || 16} | ef=${meta.hnsw?.ef_search || 128}`;
+          }
+        } catch {}
+
+        bindEvents();
+        
+        // Wait for worker to be ready (but don't block rendering)
+        setProgress(80, '等待搜索索引...');
+        
+        // Poll for worker ready (max 10s)
+        const startWorker = Date.now();
+        const pollWorker = setInterval(() => {
+          if (workerReady || Date.now() - startWorker > 10000) {
+            clearInterval(pollWorker);
+            setProgress(90, '就绪！');
+            setTimeout(hideLoadingScreen, 200);
+
+            // Initial render
+            if (searchQuery.trim()) {
+              filterAndRender();
+            } else {
+              filterAndRender();
+            }
+          }
+        }, 100);
+
+      } catch (err) {
+        console.error('Init error:', err);
+        document.getElementById('loadingScreen').innerHTML =
+          `<div class="loading-title">❌ 初始化失败</div><div class="loading-sub">${err.message}</div>`;
+      }
+    }
+
     window.goPage = goPage;
+    window.toggleTag = toggleTag;
+    window.findSimilarRepos = findSimilarRepos;
     init();
   </script>
 </body>

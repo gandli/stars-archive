@@ -1,0 +1,26 @@
+{
+  "name": "stars-archive",
+  "version": "1.0.0",
+  "description": "> 📋 **4,816** starred repositories · 77 languages · Auto-synced daily at 02:00 UTC > 🔍 **[搜索页面](https://gandli.github.io/stars-archive/)** — 支持全文搜索 · 语言分类 · 标签过滤 · 中文描述",
+  "main": "search_worker.js",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gandli/stars-archive.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gandli/stars-archive/issues"
+  },
+  "homepage": "https://github.com/gandli/stars-archive#readme",
+  "devDependencies": {
+    "vitest": "^4.1.4"
+  }
+}
