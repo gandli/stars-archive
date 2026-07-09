@@ -59,7 +59,9 @@ LANG_CATEGORIES = {
     "Docker": ["docker", "container"],
     "Kubernetes": ["kubernetes", "k8s"],
     "Database": ["postgresql", "mysql", "mongodb", "redis", "sqlite", "duckdb"],
-    "AI/ML": ["llm", "ai", "machine-learning", "deep-learning", "gpt", "nlp"],
+    "AI/ML": ["llm", "ai", "machine-learning", "deep-learning", "gpt", "nlp",
+               "transformer", "huggingface", "ollama", "langchain", "rag", "embedding",
+               "whisper", "stable-diffusion", "generative", "chatgpt", "claude", "openai"],
     "CLI": ["cli", "command-line", "terminal", "tui"],
     "API": ["api", "rest", "graphql", "grpc", "swagger"],
     "DevOps": ["devops", "ci/cd", "github-action", "gitlab-ci"],
@@ -70,18 +72,23 @@ LANG_CATEGORIES = {
 def get_lang_category(name, desc, topics, orig_lang):
     """Infer category from lang + topics + name."""
     combined = ' '.join([name, desc, ' '.join(topics or [])]).lower()
-    
-    # First check AI/ML (highest priority for tech repos)
-    ai_keywords = ['llm', 'ai', 'machine-learning', 'deep-learning', 'gpt', 'nlp', 'transformer', 
-                   'huggingface', 'ollama', 'langchain', 'rag', 'embedding', 'whisper',
-                   'stable-diffusion', 'generative', 'chatgpt', 'claude', 'openai']
-    if any(kw in combined for kw in ai_keywords):
-        return "🤖 AI/ML"
-    
+    # Normalize: hyphens in keywords match spaces in text
+    combined_normalized = combined.replace('-', ' ')
+
+    # AI/ML: detect via keywords in AI/ML category
+    ai_keywords = LANG_CATEGORIES.get("AI/ML", [])
+    for kw in ai_keywords:
+        kw_variants = [kw, kw.replace('-', ' ')]
+        if any(v in combined or v in combined_normalized for v in kw_variants):
+            return "🤖 AI/ML"
+
     # Check main language
     for category, keywords in LANG_CATEGORIES.items():
+        if category == "AI/ML":
+            continue
         for kw in keywords:
-            if kw in combined:
+            kw_variants = [kw, kw.replace('-', ' ')]
+            if any(v in combined or v in combined_normalized for v in kw_variants):
                 return category
     
     # Fall back to GitHub language

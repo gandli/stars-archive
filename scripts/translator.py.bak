@@ -21,7 +21,6 @@ import sys
 import time
 import re
 from pathlib import Path
-from typing import Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.request import urlopen, Request
 from urllib.parse import urlencode
@@ -105,7 +104,7 @@ def load_existing() -> dict:
     return {}
 
 
-def save_results(results: dict, meta: Optional[dict] = None):
+def save_results(results: dict, meta: dict | None = None):
     """增量保存翻译结果"""
     OUTPUT_FILE.write_text(
         json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8"

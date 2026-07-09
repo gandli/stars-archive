@@ -1,16 +1,39 @@
-# Temp files
+# Python
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+*.egg
 
-# GitHub Actions workflows (keep in repo)
-!.github/
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+.tox/
+.nox/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Backup files
-*～
-*.bak
-node_modules/
+# Project specific
+data/*.bin
+data/*.json
+!data/.gitkeep
