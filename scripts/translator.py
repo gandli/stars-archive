@@ -116,14 +116,14 @@ def save_results(results: dict, meta: Optional[dict] = None):
         )
 
 
-def main():
+def main(argv=None):
     import argparse
 
     parser = argparse.ArgumentParser(description="批量翻译星标仓库描述")
     parser.add_argument("--max-workers", type=int, default=MAX_WORKERS)
     parser.add_argument("--rate-limit", type=float, default=DEFAULT_RATE_LIMIT)
     parser.add_argument("--dry-run", action="store_true", help="只显示统计, 不翻译")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     # 加载数据
     with open(ENRICHED_FILE, "r", encoding="utf-8") as f:
