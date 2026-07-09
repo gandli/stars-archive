@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/gandli/stars-archive#readme",
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "vitest": "^4.1.4"
   }
 }

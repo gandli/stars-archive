@@ -295,9 +295,14 @@
           const { type, ...data } = e.data;
 
           switch (type) {
-            case 'status':
+            case 'status': {
               setProgress(60, data.text);
+              // Extra: BM25 index built
+              if (data.text && data.text.includes('关键词索引')) {
+                document.getElementById('modelStatus').textContent = `🔤 BM25就绪 | 🧠 语义待加载`;
+              }
               break;
+            }
 
             // ── Worker ready ──────────────────────────────────────
             case 'ready': {
@@ -351,15 +356,6 @@
               if (badge) {
                 badge.textContent = '失败';
                 badge.className = 'badge naive';
-              }
-              break;
-            }
-
-            // ── BM25 ready ─────────────────────────────────────────
-            case 'status': {
-              // Extra: BM25 index built
-              if (data.text && data.text.includes('关键词索引')) {
-                document.getElementById('modelStatus').textContent = `🔤 BM25就绪 | 🧠 语义待加载`;
               }
               break;
             }

@@ -21,6 +21,13 @@ coverage.xml
 *.cover
 .tox/
 .nox/
+test-results/
+playwright-report/
+.playwright/
+
+# Node.js
+node_modules/
+node_modules/.package-lock.json
 
 # IDE
 .vscode/
