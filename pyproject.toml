@@ -16,4 +16,4 @@ omit = ["tests/*", "scripts/detect_changes.py", "scripts/export_for_web.py", "sc
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 60
+fail_under = 85

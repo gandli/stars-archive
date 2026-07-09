@@ -164,7 +164,11 @@ if HAS_UNIFIED_TRANSLATOR:
     def translate_to_chinese(text, target_lang="en"):
         return translate_single(text)
     def batch_translate(texts, batch_size=10):
-        return texts
+        """批量翻译（并发）"""
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            results = list(executor.map(translate_single, texts))
+        return results
 else:
     def translate_to_chinese(text, target_lang="en"):
         return _translate_single_libretranslate(text)

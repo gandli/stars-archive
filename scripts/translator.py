@@ -34,10 +34,11 @@ ENRICHED_FILE = DATA_DIR / "stars-enriched.json"
 OUTPUT_FILE = DATA_DIR / "desc-cn.json"
 META_FILE = DATA_DIR / "translation-meta.json"
 
-# MyMemory API (免费, 无需 key, 限流 5 请求/10 秒)
 MYMEMORY_URL = "https://api.mymemory.translated.net/get"
-DEFAULT_RATE_LIMIT = 0.3  # 秒/请求 (12 workers × 0.3s ≈ 3.6 请求/秒, 安全)
-MAX_WORKERS = 12
+# MyMemory API (限流 5 请求/10 秒)
+# Conservative: 2 workers × 2s interval = 1 req/s
+MAX_WORKERS = 2
+DEFAULT_RATE_LIMIT = 2.0
 MAX_RETRIES = 3
 
 

@@ -125,7 +125,7 @@ class TestMainIntegration:
         meta = json.loads(meta_file.read_text())
         assert "total_translated" in meta
         assert "synced_at" in meta
-        assert meta["workers"] == 12
+        assert meta["workers"] == 2  # Changed from 12 to respect API rate limits
 
     @patch("translator.urlopen")
     def test_main_handles_api_failure_gracefully(self, mock_urlopen, tmp_path):

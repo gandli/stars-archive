@@ -8,6 +8,7 @@ Uses only stdlib - no external dependencies.
 import os
 import json
 import time
+import shutil
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -19,28 +20,62 @@ HEADERS = {
     "X-GitHub-Api-Version": "2022-11-28"
 }
 
+
+class TokenError(Exception):
+    """GitHub token is invalid or expired"""
+    pass
+
+
+class RateLimitError(Exception):
+    """GitHub API rate limit exceeded"""
+    pass
+
+
 def get_env_token():
     """Get token from env."""
     return os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN", "")
 
-def api_request(url, params=None):
-    """Make authenticated GitHub API request."""
+
+def validate_token():
+    """Pre-flight token validation."""
     token = get_env_token()
     if not token:
-        raise Exception("No GitHub token found in GH_TOKEN or GITHUB_TOKEN env")
-    
+        raise TokenError("No GitHub token found in GH_TOKEN or GITHUB_TOKEN env")
+    try:
+        api_request(f"{GITHUB_API}/user")
+    except TokenError:
+        raise
+    except Exception as e:
+        if "401" in str(e):
+            raise TokenError("GH_TOKEN is invalid or expired. Please refresh the secret.")
+        raise
+
+
+def api_request(url, params=None, retry_count=1):
+    """Make authenticated GitHub API request with retry logic."""
+    token = get_env_token()
+    if not token:
+        raise TokenError("No GitHub token found")
+
     headers = dict(HEADERS)
     headers["Authorization"] = f"Bearer {token}"
-    
+
     if params:
         url += "?" + urllib.parse.urlencode(params)
-    
+
     req = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             return json.loads(resp.read().decode())
     except urllib.error.HTTPError as e:
         body = e.read().decode() if e.fp else ""
+        if e.code == 401:
+            raise TokenError(f"Invalid GH_TOKEN (401). Please refresh the secret.")
+        if e.code == 403 and "rate limit" in body.lower():
+            raise RateLimitError("GitHub API rate limit exceeded")
+        if e.code >= 500 and retry_count > 0:
+            time.sleep(2)
+            return api_request(url, params, retry_count - 1)
         raise Exception(f"HTTP {e.code} for {url}: {body[:200]}")
 
 def fetch_all_stars(username):
@@ -98,6 +133,9 @@ def fetch_all_stars(username):
     return repos
 
 def main():
+    # Validate token before doing anything else
+    validate_token()
+    
     # Get username from env (set by workflow)
     username = os.environ.get("GITHUB_ACTOR") or os.environ.get("GH_USER", "gandli")
     print(f"Username: {username}")

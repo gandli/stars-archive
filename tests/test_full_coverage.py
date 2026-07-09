@@ -174,8 +174,11 @@ class TestEnrichFallbackBranch:
         if enrich.HAS_UNIFIED_TRANSLATOR:
             assert callable(enrich.translate_to_chinese)
             assert callable(enrich.batch_translate)
-            # batch_translate returns texts as-is
-            assert enrich.batch_translate(["test"]) == ["test"]
+            # batch_translate now actually translates (P0-04 fix)
+            # Note: without mocking translator, real translation may fail
+            result = enrich.batch_translate(["test"])
+            assert isinstance(result, list)
+            assert len(result) == 1
 
 
 class TestEnrichProgress:

@@ -7,9 +7,11 @@ Format (ArrayBuffer):
   ids.json:     string[] — same order as vector rows
 """
 
-import json, struct, numpy as np
+import os, json, struct, numpy as np
+from pathlib import Path
 
-DATA_DIR = '/Users/user/.hermes/hermes-agent/stars-archive/data'
+# 优先使用环境变量，其次使用相对于脚本的路径
+DATA_DIR = Path(os.environ.get('DATA_DIR', Path(__file__).parent.parent / 'data'))
 OUT = DATA_DIR
 
 # ── 1. Load order from hnsw_ids.json ─────────────────────────────────────

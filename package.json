@@ -1,6 +1,6 @@
 {
   "name": "stars-archive",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "> 📋 **4,816** starred repositories · 77 languages · Auto-synced daily at 02:00 UTC > 🔍 **[搜索页面](https://gandli.github.io/stars-archive/)** — 支持全文搜索 · 语言分类 · 标签过滤 · 中文描述",
   "main": "search_worker.js",
   "scripts": {
