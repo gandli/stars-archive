@@ -68,11 +68,6 @@ jobs:
         run: |
           python scripts/enrich.py
 
-      - name: Translate Descriptions (concurrent + retry)
-        timeout-minutes: 15
-        run: |
-          python scripts/translator.py --max-workers 12 --rate-limit 0.3
-
       - name: Generate README
         run: |
           python scripts/generate_readme.py
