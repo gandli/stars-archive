@@ -1,0 +1,19 @@
+[project]
+name = "stars-archive"
+version = "2.0.0"
+description = "📋 GitHub Stars Archive - Auto-synced daily with AI-powered search"
+requires-python = ">=3.9"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["scripts"]
+omit = ["tests/*", "scripts/detect_changes.py", "scripts/export_for_web.py", "scripts/generate_readme.py", "scripts/generate_vectors.py", "scripts/sync.py", "scripts/test_search.py", "scripts/translate_descriptions.py", "scripts/translate_fast.py"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 60

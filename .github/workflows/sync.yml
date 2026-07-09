@@ -2,7 +2,7 @@ name: 📋 Sync GitHub Stars
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # 每天凌晨 2:00 UTC = 北京时间 10:00
+    - cron: '0 2 * * *'  # 每天 02:00 UTC = 北京时间 10:00
   workflow_dispatch:
   push:
     branches: [main]
@@ -12,7 +12,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest coverage
+      - name: Run Python tests
+        run: |
+          python -m pytest tests/ -v --tb=short
+      - name: Coverage report
+        run: |
+          python -m coverage run --source=scripts -m pytest tests/ -q
+          python -m coverage report --include="scripts/*" --fail-under=60
+
   sync:
+    needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -30,6 +50,14 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Cache desc-cn.json
+        uses: actions/cache@v4
+        with:
+          path: data/desc-cn.json
+          key: translator-${{ hashFiles('data/stars-enriched.json') }}
+          restore-keys: |
+            translator-
+
       - name: Fetch Stars
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -39,6 +67,11 @@ jobs:
       - name: Enrich Data
         run: |
           python scripts/enrich.py
+
+      - name: Translate Descriptions (concurrent + retry)
+        timeout-minutes: 15
+        run: |
+          python scripts/translator.py --max-workers 12 --rate-limit 0.3
 
       - name: Generate README
         run: |
@@ -58,6 +91,18 @@ jobs:
           echo "## Sync Summary"
           echo "- Total stars: $(jq '. | length' data/stars-enriched.json)"
           echo "- Last synced: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          if [ -f data/desc-cn.json ]; then
+            echo "- Translations: $(jq '. | length' data/desc-cn.json)"
+          fi
+
+      - name: Update vectors & export
+        run: |
+          if [ -f scripts/generate_vectors.py ]; then
+            python scripts/generate_vectors.py || echo "Vector generation skipped"
+          fi
+          if [ -f scripts/export_for_web.py ]; then
+            python scripts/export_for_web.py || echo "Export skipped"
+          fi
 
       - name: Commit & Push
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -66,6 +111,7 @@ jobs:
             📋 Sync stars $(date +%Y-%m-%d)
           file_pattern: |
             data/*.json
+            data/*.bin
             README.md
             index.html
           skip_dirty_check: false
