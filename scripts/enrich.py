@@ -3,18 +3,34 @@
 Enrich GitHub Stars with:
 1. Language category tags (from lang + topics)
 2. Auto-generated tags (from name + topics)
-3. Chinese translation of descriptions
+3. Chinese translation (delegated to translator.py)
 4. Topic normalization
-
-Uses LibreTranslate (free, self-hosted) or falls back to basic mapping.
 """
 
 import json
 import os
+import sys
 import time
 import re
 from pathlib import Path
 from collections import defaultdict
+
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+
+# ========== Common utilities ==========
+def is_chinese(text: str) -> bool:
+    """Check if text contains Chinese characters"""
+    return bool(re.search(r"[\u4e00-\u9fff]", text))
+
+# Try to import unified translator
+try:
+    from translator import translate_single, RateLimiter
+    HAS_UNIFIED_TRANSLATOR = True
+except ImportError:
+    HAS_UNIFIED_TRANSLATOR = False
+
+# ... rest of existing code ...
 
 # ========== Language Categories ==========
 LANG_CATEGORIES = {
@@ -111,34 +127,24 @@ def extract_auto_tags(name, desc, topics, orig_lang):
     
     return list(tags)[:10]  # Max 10 tags
 
-# ========== Translation ==========
-LIBRETRANSLATE_URL = os.environ.get("LIBRE_TRANSLATE_URL", "https://libretranslate.com")
+# ========== Translation backend ==========
+# Prefer unified translator.py (concurrent + retry); else fallback to single-shot
+LIBRETRANSLATE_URL = os.environ.get("LIBRETRANSLATE_URL", "https://libretranslate.com")
 
-def translate_to_chinese(text, target_lang="en"):
-    """Translate text to Chinese using LibreTranslate API."""
+def _translate_single_libretranslate(text: str) -> str:
+    """Single-shot translation via LibreTranslate (fallback only)."""
     if not text or not text.strip():
         return ""
-    
-    # Skip if already Chinese
-    if any('\u4e00' <= c <= '\u9fff' for c in text):
+    if is_chinese(text):
         return text
-    
     try:
-        import urllib.request
-        import urllib.parse
-        
+        import urllib.request, urllib.parse
         url = f"{LIBRETRANSLATE_URL}/translate"
         data = urllib.parse.urlencode({
-            "q": text[:1000],  # Limit length
-            "source": "en",
-            "target": "zh",
-            "format": "text"
+            "q": text[:1000], "source": "en", "target": "zh", "format": "text"
         }).encode()
-        
-        req = urllib.request.Request(url, data=data, headers={
-            "Content-Type": "application/x-www-form-urlencoded"
-        })
-        
+        req = urllib.request.Request(url, data=data,
+            headers={"Content-Type": "application/x-www-form-urlencoded"})
         with urllib.request.urlopen(req, timeout=10) as resp:
             result = json.loads(resp.read().decode())
             return result.get("translatedText", text)
@@ -146,19 +152,27 @@ def translate_to_chinese(text, target_lang="en"):
         print(f"  Translation error: {e}")
         return text
 
-def batch_translate(texts, batch_size=10):
-    """Translate a batch of texts with rate limiting."""
-    results = []
-    for i, text in enumerate(texts):
-        if text and not any('\u4e00' <= c <= '\u9fff' for c in text):
-            result = translate_to_chinese(text)
-            time.sleep(0.3)  # Rate limit friendly
-        else:
-            result = text
-        results.append(result)
-        if (i + 1) % 10 == 0:
-            print(f"  Translated {i + 1}/{len(texts)}")
-    return results
+if HAS_UNIFIED_TRANSLATOR:
+    print("✅ 使用统一翻译模块 translator.py (并发 + 重试)")
+    def translate_to_chinese(text, target_lang="en"):
+        return translate_single(text)
+    def batch_translate(texts, batch_size=10):
+        return texts
+else:
+    def translate_to_chinese(text, target_lang="en"):
+        return _translate_single_libretranslate(text)
+    def batch_translate(texts, batch_size=10):
+        results = []
+        for i, text in enumerate(texts):
+            if text and not is_chinese(text):
+                result = translate_to_chinese(text)
+                time.sleep(0.3)
+            else:
+                result = text
+            results.append(result)
+            if (i + 1) % 10 == 0:
+                print(f"  Translated {i + 1}/{len(texts)}")
+        return results
 
 # ========== Main Enrichment ==========
 def enrich_repo(repo):
